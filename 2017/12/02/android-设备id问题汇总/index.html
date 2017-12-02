@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>android 设备id问题汇总 | bei1999 的博客</title>
+  <title>Android 设备id问题汇总 | bei1999 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言经常听到某某需求提要获取设备唯一id，用途就多了，要跟踪设备，做个收藏了（看完全文你就知道这个需求并不完美实现） IMEI这个算是最常见的了 android 中获取imei 代码如下 1234567891011/** * 获取手机IMEI号 *  * 需要动态权限: android.permission.READ_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android 设备id问题汇总">
-<meta property="og:url" content="http://yoursite.com/2017/12/02/android-设备id问题汇总/index.html">
+<meta property="og:title" content="Android 设备id问题汇总">
+<meta property="og:url" content="http://yoursite.com/2017/12/02/Android-设备id问题汇总/index.html">
 <meta property="og:site_name" content="bei1999 的博客">
 <meta property="og:description" content="前言经常听到某某需求提要获取设备唯一id，用途就多了，要跟踪设备，做个收藏了（看完全文你就知道这个需求并不完美实现） IMEI这个算是最常见的了 android 中获取imei 代码如下 1234567891011/** * 获取手机IMEI号 *  * 需要动态权限: android.permission.READ_PHONE_STATE */public static String getIM">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-02T12:40:27.000Z">
+<meta property="og:updated_time" content="2017-12-02T13:07:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android 设备id问题汇总">
+<meta name="twitter:title" content="Android 设备id问题汇总">
 <meta name="twitter:description" content="前言经常听到某某需求提要获取设备唯一id，用途就多了，要跟踪设备，做个收藏了（看完全文你就知道这个需求并不完美实现） IMEI这个算是最常见的了 android 中获取imei 代码如下 1234567891011/** * 获取手机IMEI号 *  * 需要动态权限: android.permission.READ_PHONE_STATE */public static String getIM">
   
     <link rel="alternate" href="/atom.xml" title="bei1999 的博客" type="application/atom+xml">
@@ -64,12 +64,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-android-设备id问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Android-设备id问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/12/02/android-设备id问题汇总/" class="article-date">
+    <a href="/2017/12/02/Android-设备id问题汇总/" class="article-date">
   <time datetime="2017-12-02T12:39:57.000Z" itemprop="datePublished">2017-12-02</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -78,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      android 设备id问题汇总
+      Android 设备id问题汇总
     </h1>
   
 
@@ -97,7 +101,7 @@
 </ol>
 <p>下面的系统源码说明了一切<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">**</span><br><span class="line">     * Returns the unique device ID, <span class="keyword">for</span> example, the IMEI <span class="keyword">for</span> GSM and the MEID</span><br><span class="line">     * or ESN <span class="keyword">for</span> CDMA phones. Return <span class="keyword">null</span> <span class="keyword">if</span> device ID is not available.</span><br><span class="line">     *</span><br><span class="line">     * &lt;p&gt;Requires Permission:</span><br><span class="line">     *   &#123;@link android.Manifest.permission#READ_PHONE_STATE READ_PHONE_STATE&#125;</span><br><span class="line">     */</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDeviceId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ITelephony telephony = getITelephony();</span><br><span class="line">            <span class="keyword">if</span> (telephony == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> telephony.getDeviceId(mContext.getOpPackageName());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="Serial-Number"><a href="#Serial-Number" class="headerlink" title="Serial Number"></a>Serial Number</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.os.Build.SERIAL</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SERIAL = getString(<span class="string">"ro.serialno"</span>);</span><br></pre></td></tr></table></figure>
+<p>系统源码获取的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SERIAL = getString(<span class="string">"ro.serialno"</span>);</span><br></pre></td></tr></table></figure></p>
 <h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h4><ol>
 <li>android 2.3以上，据说有些设备获取有问题</li>
 </ol>
@@ -123,7 +127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/android-设备id问题汇总/" data-id="cjapbv0f6001ai2dptfozt1o2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Android-设备id问题汇总/" data-id="cjapcz94c000blfdpnv0mhe1w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -160,7 +164,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Config/">Config</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
   </div>
 
@@ -170,7 +174,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分法/">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单例/">单例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启动模式/">启动模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li></ul>
     </div>
   </div>
 
@@ -180,7 +184,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 15px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/Retrofit/" style="font-size: 10px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/二分法/" style="font-size: 10px;">二分法</a> <a href="/tags/二进制/" style="font-size: 15px;">二进制</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/单例/" style="font-size: 10px;">单例</a> <a href="/tags/启动模式/" style="font-size: 10px;">启动模式</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 15px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 20px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -189,7 +193,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
   </div>
 
@@ -206,7 +210,7 @@
           </li>
         
           <li>
-            <a href="/2017/12/02/android-设备id问题汇总/">android 设备id问题汇总</a>
+            <a href="/2017/12/02/Android-设备id问题汇总/">Android 设备id问题汇总</a>
           </li>
         
           <li>

@@ -68,6 +68,10 @@
   <time datetime="2017-12-02T12:41:12.000Z" itemprop="datePublished">2017-12-02</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -97,7 +101,7 @@
 </ul>
 <h2 id="运行-sample项目"><a href="#运行-sample项目" class="headerlink" title="运行 sample项目"></a>运行 sample项目</h2><p><img src="http://o8ra1yomr.bkt.clouddn.com/屏幕快照%202017-12-01%20下午2.44.37.png" width="400"></p>
 <p>由于手里没有上面符合条件的测试机，运行安装的apk，提示不支持<br>通过<a href="https://github.com/tomthecarrot/arcore-for-all.git" target="_blank" rel="noopener">Google ARCore for “unsupported” Android devices</a>这个项目通过修改绕过设备检测名单限制进行征集试验，于是用设备 huawei mate 9 pro 试验了下，还是因为设备硬件问题，没有最终显示出来。</p>
-<p><img src="http://o8ra1yomr.bkt.clouddn.com/Screenshot_20171201-112212.png" height="400"></p>
+<p><img src="http://o8ra1yomr.bkt.clouddn.com/Screenshot_20171201-112212.png" width="400" height="200"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面是在Android Studio中简单的尝试了下OpenGL下的ARCore 开发过程，可以使用ARCore with Unity 和 ARCore with Unreal。鉴于大部分ARCore开发都依赖于Unity 3d ，并且Unity 3d 的跨平台做的很好，一次编码可以导出多个平台（pc，android ，ios等）后面有时间的话会学习下Unity 3d 相关的开发工作。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developers.google.com/ar/discover/" target="_blank" rel="noopener">ARCore API </a></p>
 <p><a href="http://www.phonemore.com/samsung-galaxy-s8/models/764" target="_blank" rel="noopener">Samsung Galaxy S8 MODELS AND SPECS</a></p>
@@ -105,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="cjapbv0dh0002i2dpknzdpm06" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="cjapcz9420005lfdpz3a5y3ln" class="article-share-link">Share</a>
       
       
     </footer>
@@ -115,12 +119,16 @@
 
 
   
-    <article id="post-android-设备id问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android-设备id问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/12/02/android-设备id问题汇总/" class="article-date">
+    <a href="/2017/12/02/Android-设备id问题汇总/" class="article-date">
   <time datetime="2017-12-02T12:39:57.000Z" itemprop="datePublished">2017-12-02</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -129,7 +137,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/02/android-设备id问题汇总/">android 设备id问题汇总</a>
+      <a class="article-title" href="/2017/12/02/Android-设备id问题汇总/">Android 设备id问题汇总</a>
     </h1>
   
 
@@ -148,7 +156,7 @@
 </ol>
 <p>下面的系统源码说明了一切<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">**</span><br><span class="line">     * Returns the unique device ID, <span class="keyword">for</span> example, the IMEI <span class="keyword">for</span> GSM and the MEID</span><br><span class="line">     * or ESN <span class="keyword">for</span> CDMA phones. Return <span class="keyword">null</span> <span class="keyword">if</span> device ID is not available.</span><br><span class="line">     *</span><br><span class="line">     * &lt;p&gt;Requires Permission:</span><br><span class="line">     *   &#123;@link android.Manifest.permission#READ_PHONE_STATE READ_PHONE_STATE&#125;</span><br><span class="line">     */</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDeviceId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ITelephony telephony = getITelephony();</span><br><span class="line">            <span class="keyword">if</span> (telephony == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> telephony.getDeviceId(mContext.getOpPackageName());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="Serial-Number"><a href="#Serial-Number" class="headerlink" title="Serial Number"></a>Serial Number</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.os.Build.SERIAL</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SERIAL = getString(<span class="string">"ro.serialno"</span>);</span><br></pre></td></tr></table></figure>
+<p>系统源码获取的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SERIAL = getString(<span class="string">"ro.serialno"</span>);</span><br></pre></td></tr></table></figure></p>
 <h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h4><ol>
 <li>android 2.3以上，据说有些设备获取有问题</li>
 </ol>
@@ -174,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/android-设备id问题汇总/" data-id="cjapbv0f6001ai2dptfozt1o2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Android-设备id问题汇总/" data-id="cjapcz94c000blfdpnv0mhe1w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,6 +198,10 @@
   <time datetime="2017-12-02T12:38:43.000Z" itemprop="datePublished">2017-12-02</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -218,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="cjapbv0du0009i2dpujf3adqs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="cjapcz94g000hlfdpvzhox7mu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -265,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="cjapbv0fq002ai2dp2ws2lrxv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="cjapcz9690033lfdpevxez14b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/">CustomView</a></li></ul>
@@ -317,45 +329,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjapbv0ft002ci2dpi4zsw49e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjapcz96a0035lfdpe6wkp6w2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/">CustomView</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-混淆总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/26/混淆总结/" class="article-date">
-  <time datetime="2017-11-26T15:07:37.000Z" itemprop="datePublished">2017-11-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ProGuard简介"><a href="#ProGuard简介" class="headerlink" title="ProGuard简介"></a>ProGuard简介</h1><p>因为Java代码是非常容易反编码的，况且Android开发的应用程序是用Java代码写的，为了很好的保护Java源代码，我们需要对编译好后的class文件进行混淆。<br>ProGuard是一个混淆代码的开源项目，它的主要作用是混淆代码，殊不知ProGuard还包括以下4个功能。</p>
-<ul>
-<li>压缩(Shrink)：检测并移除代码中无用的类、字段、方法和特性（Attribute）。</li>
-<li>优化(Optimize)：对字节码进行优化，移除无用的指令。</li>
-<li>混淆(Obfuscate)：使用a，b，c，d这样简短而无意义的名称，对类、字段和方法进行重命名。</li>
-<li>预检(Preveirfy)：在Java平台上对处理后的代码进行预检，确保加载的class文件是可执行的。<br>总而言之，根据官网的翻译：Proguard是一个Java类文件压缩器、优化器、混淆器、预校验器。压缩环节会检测以及移除没有用到的类、字段、方法以及属性。优化环节会分析以及优化方法的字节码。混淆环节会用无意义的短变量去重命名类、变量、方法。这些步骤让代码更精简，更高效，也更难被逆向（破解）。</li>
-</ul>
-<h1 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">## Warning:library class android.test.AndroidTestCase extends or implements program class junit.framework.TestCase</span><br><span class="line">-dontwarn org.mockito.**</span><br><span class="line">-dontwarn sun.reflect.**</span><br><span class="line">-dontwarn android.test.**</span><br><span class="line"></span><br><span class="line">## deal for retrolambda </span><br><span class="line">-dontwarn java.lang.invoke.*</span><br><span class="line"></span><br><span class="line">## Warning:org.junit.internal.runners.statements.FailOnTimeout: can&apos;t find referenced class java.lang.management.ManagementFactory</span><br><span class="line"></span><br><span class="line">-dontwarn java.lang.management.**</span><br><span class="line">-keep class java.lang.management.**  &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">#---------------------------------3.与js互相调用的类------------------------</span><br><span class="line"></span><br><span class="line">## JavaScriptInterfaceBase 任何需要JS回调NATIVE接口的类请集成这个基类,混淆脚本不会对该类的子类进行混淆</span><br><span class="line">-keep class * extends com.xx.JavaScriptInterfaceBase &#123;</span><br><span class="line"></span><br><span class="line">       &lt;fields&gt;;</span><br><span class="line"></span><br><span class="line">       &lt;methods&gt;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">-keepattributes *Annotation*</span><br><span class="line">-keepattributes *JavascriptInterface*</span><br><span class="line">-keep class com.xx.ui.news.fragment.NewsDetailFragment &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">#-------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#---------------------------------4.反射相关的类和方法-----------------------</span><br><span class="line">-dontwarn com.xx.common.utils.**</span><br><span class="line">-keep class com.xx.common.utils.** &#123; *; &#125;</span><br><span class="line">-dontwarn com.xx.common.base.**</span><br><span class="line">-keep class com.xx.common.base.** &#123; *; &#125;</span><br><span class="line">-dontwarn com.xx.common.baserx.**</span><br><span class="line">-keep class com.xx.common.baserx.** &#123; *; &#125;</span><br><span class="line">-keep class com.xx.common.basebean.** &#123; *; &#125;</span><br><span class="line">-keep class com.xx.cctv.base.**  &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">## Caused by: java.lang.ClassCastException: java.lang.Object cannot be cast to kstar.mycommon.base.b</span><br><span class="line">mPresenter = TUtil.getT(this, 0);</span><br><span class="line"></span><br><span class="line">#---------------------------------4.反射相关的类和方法-----------------------</span><br><span class="line">## 对commonutils报下的代码不警告</span><br><span class="line">-dontwarn com.xx.commonutils.**</span><br><span class="line">-keep class com.xx.commonutils.** &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">#----------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">报错是强转两个对象之间的问题。根据这个思路 我将两个对象的代码都保护起来,BaseModel的子类要保护，不能混淆.</span><br><span class="line"></span><br><span class="line">## BaseModel类所在的位置</span><br><span class="line">-keep class com.xx.base.** &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">## BaseModel子类，我们业务类所在的位置</span><br><span class="line">-keep class com.xx.ui.login.model.** &#123; *; &#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/混淆总结/" data-id="cjapbv0fo0023i2dpmwalez5t" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -369,6 +347,10 @@
   <time datetime="2017-11-26T14:51:30.000Z" itemprop="datePublished">2017-11-26</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Config/">Config</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -411,9 +393,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="cjapbv0e8000ki2dptfpv7cvc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="cjapcz94y0013lfdptszv9wv0" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+
     </footer>
   </div>
   
@@ -427,6 +411,10 @@
   <time datetime="2017-11-25T14:50:30.000Z" itemprop="datePublished">2017-11-25</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Config/">Config</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -462,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="cjapbv0e6000ji2dp3rencsy6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="cjapcz94v0010lfdp8qud97lz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -478,6 +466,10 @@
   <time datetime="2017-11-23T14:50:30.000Z" itemprop="datePublished">2017-11-23</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -504,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="cjapbv0fp0026i2dpx1xzuda7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="cjapcz968002zlfdplu8tr2qd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -520,6 +512,10 @@
   <time datetime="2017-11-12T14:50:30.000Z" itemprop="datePublished">2017-11-12</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -584,7 +580,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="cjapbv0d50000i2dpqjark7bh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="cjapcz93m0000lfdpdinro4aw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/16/webview-遇到的坑/" class="article-date">
+  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/webview-遇到的坑/">webview 遇到的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
+<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
+<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
+<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
+<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="cjapcz95t002elfdpgsqtzt6w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -607,7 +650,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Config/">Config</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
   </div>
 
@@ -617,7 +660,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分法/">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单例/">单例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启动模式/">启动模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li></ul>
     </div>
   </div>
 
@@ -627,7 +670,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 15px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/Retrofit/" style="font-size: 10px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/二分法/" style="font-size: 10px;">二分法</a> <a href="/tags/二进制/" style="font-size: 15px;">二进制</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/单例/" style="font-size: 10px;">单例</a> <a href="/tags/启动模式/" style="font-size: 10px;">启动模式</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 15px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 20px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -636,7 +679,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
   </div>
 
@@ -653,7 +696,7 @@
           </li>
         
           <li>
-            <a href="/2017/12/02/android-设备id问题汇总/">android 设备id问题汇总</a>
+            <a href="/2017/12/02/Android-设备id问题汇总/">Android 设备id问题汇总</a>
           </li>
         
           <li>
