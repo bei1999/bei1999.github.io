@@ -49,9 +49,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,6 +61,171 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Retrofit-传递数组参数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/18/Retrofit-传递数组参数/" class="article-date">
+  <time datetime="2016-12-18T06:12:26.000Z" itemprop="datePublished">2016-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/18/Retrofit-传递数组参数/">Retrofit 传递数组参数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>Http GET 请求接口数据类型如下：</em><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checkNewsId"</span>: [</span><br><span class="line">    <span class="string">"string"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"curPage"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">"position"</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>ApiService 定义</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET</span>(<span class="string">"news/list"</span>)</span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">getData</span><span class="params">(@Query(<span class="string">"curPage"</span>)</span> String curPage,@<span class="title">Query</span><span class="params">(<span class="string">"position"</span>)</span> String position,  @<span class="title">Query</span><span class="params">(<span class="string">"checkNewsId"</span>)</span> String... checkNewsId)</span>;</span><br></pre></td></tr></table></figure></p>
+<p><em>或者</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET</span>(<span class="string">"news/list"</span>)</span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">getData</span><span class="params">(@Query(<span class="string">"curPage"</span>)</span> String curPage,@<span class="title">Query</span><span class="params">(<span class="string">"position"</span>)</span> String position,  @<span class="title">Query</span><span class="params">(<span class="string">"checkNewsId"</span>)</span> String[] checkNewsId)</span>;</span><br></pre></td></tr></table></figure></p>
+<p><em>两种写法最后请求都是循环拼接方式请求</em><br><strong>checkNewsId ＝xx&amp;checkNewsId ＝ss</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/18/Retrofit-传递数组参数/" data-id="cjapbv0ec000oi2dpz2ppcr5i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Jenkins-问题汇总篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/30/Jenkins-问题汇总篇/" class="article-date">
+  <time datetime="2016-10-30T13:19:11.000Z" itemprop="datePublished">2016-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/30/Jenkins-问题汇总篇/">Jenkins 问题汇总篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>彻底卸载jenkins</em><br><strong>run this on Terminal:</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh "/Library/Application Support/Jenkins/Uninstall.command"</span><br></pre></td></tr></table></figure></p>
+<p><em>或 依次执行下面的命令</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist    </span><br><span class="line">sudo rm !$    </span><br><span class="line">sudo rm -rf /Applications/Jenkins "/Library/Application Support/Jenkins" /Library/Documentation/Jenkins    </span><br><span class="line">sudo rm -rf /Users/Shared/Jenkins    </span><br><span class="line"><span class="meta">#</span> if you want to get rid of all the jobs and builds:    </span><br><span class="line">sudo dscl . -delete /Users/jenkins    </span><br><span class="line"><span class="meta">#</span> delete the jenkins user and group (if you chose to use them):    </span><br><span class="line">sudo dscl . -delete /Groups/jenkins</span><br></pre></td></tr></table></figure></p>
+<p><em>设定jenkins 的密码</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo dscl . passwd /Users/jenkins 1234</span><br><span class="line">su jenkins</span><br><span class="line">Password: </span><br><span class="line">bash-3.2$ vim /Users/Shared/Jenkins/Home/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure></p>
+<p><em>mac android sdk 环境变量配置</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xxxMBP:~ lizhanbei$ cd ~</span><br><span class="line">xxxMBP:~ lizhanbei$ touch .bash_profile</span><br><span class="line">xxxMBP:~ lizhanbei$ open -e .bash_profile</span><br><span class="line">xxxMBP:~ lizhanbei$ source .bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>export ANDROID_HOME=/Users/xxx/Library/Android/sdk<br>export PATH=$ANDROID_HOME/platform-tools:$PATH<br>export PATH=$ANDROID_HOME/tools:$PATH<br>export PATH=$ANDROID_HOME/build-tools/22.0.1:$PATH</p>
+<p><em>Jenkins 提示没有找到ANDROID_HOME的环境变量</em><br><strong>解决办法：</strong></p>
+<ul>
+<li>Go to Jenkins &gt; Manage Jenkins &gt; Configure System</li>
+<li>Check “Environment variables</li>
+<li>add name: ANDROID_HOME, value -&gt; your android sdk dir</li>
+<li>click “add”</li>
+<li>SCROLL DOWN CLICK SAVE</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/30/Jenkins-问题汇总篇/" data-id="cjapbv0e0000fi2dpuaa1x20o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Jenkins-扩展篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/30/Jenkins-扩展篇/" class="article-date">
+  <time datetime="2016-10-30T13:18:27.000Z" itemprop="datePublished">2016-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/30/Jenkins-扩展篇/">Jenkins 扩展篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/30/Jenkins-扩展篇/" data-id="cjapbv0dz000ei2dp5noohb9v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Jenkins-使用篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/30/Jenkins-使用篇/" class="article-date">
+  <time datetime="2016-10-30T13:17:13.000Z" itemprop="datePublished">2016-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/30/Jenkins-使用篇/">Jenkins 使用篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/30/Jenkins-使用篇/" data-id="cjapbv0dx000ci2dpapc03itc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Jenkins持续集成环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -104,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/30/Jenkins持续集成环境搭建/" data-id="cjapblvt0000ih1dpv71dahi7" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/10/30/Jenkins持续集成环境搭建/" data-id="cjapbv0e3000gi2dpuo00qxl4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
@@ -142,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/22/Retrofit-OkHttp-RxAndroid-网络请求/" data-id="cjapblvt3000kh1dpdvrheujr" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/10/22/Retrofit-OkHttp-RxAndroid-网络请求/" data-id="cjapbv0e9000li2dpf7xeus19" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/19/git-flow-使用过程/" data-id="cjapblvti0018h1dpwo1d8btf" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/10/19/git-flow-使用过程/" data-id="cjapbv0fa001ei2dpwah8bl8t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -232,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/27/android-启动白屏与黑屏优化/" data-id="cjapblvtd000yh1dpqmx7i2i2" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/08/27/android-启动白屏与黑屏优化/" data-id="cjapbv0f40015i2dpyalbb1yp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
@@ -285,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/20/Android-M-permission/" data-id="cjapblvsa0001h1dp4za0hy9q" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/07/20/Android-M-permission/" data-id="cjapbv0da0001i2dpi8qu6gfu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/permission/">permission</a></li></ul>
@@ -323,176 +488,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/13/android-AsyncTask-使用总结/" data-id="cjapblvta000sh1dprfjkdq2t" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/07/13/android-AsyncTask-使用总结/" data-id="cjapbv0ef000si2dpt8mjk31c" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-二分法查找" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/11/二分法查找/" class="article-date">
-  <time datetime="2016-07-11T04:17:29.000Z" itemprop="datePublished">2016-07-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/11/二分法查找/">二分法查找</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>处理的是有序数列，取中间数值不断进行分割缩小范围,直到相等返回结果</p>
-<p> <strong>循环实现</strong></p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by bei on 16/7/8.</span></span><br><span class="line"><span class="comment"> * 循环实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearch</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> min = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> max = data.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (min &gt; max)&#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> mid = (min + max) / <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">if</span> (target &lt; data[mid]) &#123;</span><br><span class="line">                    max = mid - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; data[mid]) &#123;</span><br><span class="line">                    min = mid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> mid;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line">        BinarySearch test02 = <span class="keyword">new</span> BinarySearch(data);</span><br><span class="line">        <span class="keyword">int</span> searchPos = test02.search(<span class="number">6</span>);</span><br><span class="line">        System.out.print(<span class="string">"search pos :"</span> + searchPos);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> <strong>递归实现</strong></p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by bei on 16/7/8.</span></span><br><span class="line"><span class="comment"> * 递归实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearch02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BinarySearch02</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> target, <span class="keyword">int</span> min, <span class="keyword">int</span> max)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (min &lt; max) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (min + max) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (target &lt; data[mid]) &#123;</span><br><span class="line">                max = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; data[mid]) &#123;</span><br><span class="line">                min = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> search(min, max, target);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line">        BinarySearch02 test03 = <span class="keyword">new</span> BinarySearch02(data);</span><br><span class="line">        <span class="keyword">int</span> searchPos = test03.search(<span class="number">5</span>, <span class="number">0</span>, data.length - <span class="number">1</span>);</span><br><span class="line">        System.out.print(<span class="string">"search pos :"</span> + searchPos);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/11/二分法查找/" data-id="cjapblvtq001lh1dp69um1ecc" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分法/">二分法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-android-listview-性能优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/04/android-listview-性能优化/" class="article-date">
-  <time datetime="2016-07-04T12:44:03.000Z" itemprop="datePublished">2016-07-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/04/android-listview-性能优化/">android listview 性能优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/android-listview-性能优化/" data-id="cjapblvta000uh1dpg2l12156" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-android-跨进程通讯" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/03/android-跨进程通讯/" class="article-date">
-  <time datetime="2016-07-03T15:49:29.000Z" itemprop="datePublished">2016-07-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/03/android-跨进程通讯/">android 跨进程通讯</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/android-跨进程通讯/" data-id="cjapblvte0010h1dp4i6q3o90" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于二进制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/30/关于二进制/" class="article-date">
-  <time datetime="2016-06-30T13:59:32.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/关于二进制/">关于二进制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="十进制数转换为二进制数"><a href="#十进制数转换为二进制数" class="headerlink" title=" _十进制数转换为二进制数_"></a><strong> _十进制数转换为二进制数_</strong></h1><h2 id="1-正整数转二进制-除2取余，逆序排列"><a href="#1-正整数转二进制-除2取余，逆序排列" class="headerlink" title="1.正整数转二进制  除2取余，逆序排列"></a><strong>1.正整数转二进制  除2取余，逆序排列</strong></h2><p>erjinzhiyuanli.jpg</p>
-<h2 id="2-小数转二进制-乘2取整至最后小数部分为0，结果0-x"><a href="#2-小数转二进制-乘2取整至最后小数部分为0，结果0-x" class="headerlink" title="2.小数转二进制 乘2取整至最后小数部分为0，结果0.x"></a><strong>2.小数转二进制 乘2取整至最后小数部分为0，结果0.x</strong></h2><h3 id="这里我们以十进制小数0-125为例，先用0-125乘以2等于0-25，我们把整数部分0提取出来，再用小数部分继续计算。"><a href="#这里我们以十进制小数0-125为例，先用0-125乘以2等于0-25，我们把整数部分0提取出来，再用小数部分继续计算。" class="headerlink" title="这里我们以十进制小数0.125为例，先用0.125乘以2等于0.25，我们把整数部分0提取出来，再用小数部分继续计算。"></a>这里我们以十进制小数0.125为例，先用0.125乘以2等于0.25，我们把整数部分0提取出来，再用小数部分继续计算。</h3><p>erjinzhi_xiaoshu_01.png</p>
-<h3 id="取上一次计算的小数部分25填上0-构成新的小数0-25继续乘以2等于0-5，我们把整数部分0提取出来，再用小数部分继续计算。"><a href="#取上一次计算的小数部分25填上0-构成新的小数0-25继续乘以2等于0-5，我们把整数部分0提取出来，再用小数部分继续计算。" class="headerlink" title="取上一次计算的小数部分25填上0.构成新的小数0.25继续乘以2等于0.5，我们把整数部分0提取出来，再用小数部分继续计算。"></a>取上一次计算的小数部分25填上0.构成新的小数0.25继续乘以2等于0.5，我们把整数部分0提取出来，再用小数部分继续计算。</h3><p>erjinzhi_xiaoshu_02.png </p>
-<h3 id="用同样的方法用0-和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。"><a href="#用同样的方法用0-和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。" class="headerlink" title="用同样的方法用0.和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。"></a>用同样的方法用0.和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。</h3><p>erjinzhi_xiaoshu_03.png</p>
-<h3 id="现在我们可以看到提取的整数依次为：0-0-1，现在我们在其前面加上0-即0-001，这就是转换好的二进制小数。"><a href="#现在我们可以看到提取的整数依次为：0-0-1，现在我们在其前面加上0-即0-001，这就是转换好的二进制小数。" class="headerlink" title="现在我们可以看到提取的整数依次为：0,0,1，现在我们在其前面加上0.即0.001，这就是转换好的二进制小数。"></a>现在我们可以看到提取的整数依次为：0,0,1，现在我们在其前面加上0.即0.001，这就是转换好的二进制小数。</h3><p>erjinzhi_xiaoshu_04.png</p>
-<h2 id="3-负整数转二进制："><a href="#3-负整数转二进制：" class="headerlink" title="3.负整数转二进制："></a><strong>3.负整数转二进制：</strong></h2><h3 id="这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。"><a href="#这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。" class="headerlink" title="这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。"></a>这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。</h3><p>erjinzhi_fushu_01.png</p>
-<h3 id="现在把求反后的数字在加上1，变回得到相应的二进制数了。"><a href="#现在把求反后的数字在加上1，变回得到相应的二进制数了。" class="headerlink" title="现在把求反后的数字在加上1，变回得到相应的二进制数了。"></a>现在把求反后的数字在加上1，变回得到相应的二进制数了。</h3><p>erjinzhi_fushu_02.png</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/30/关于二进制/" data-id="cjapblvtv001rh1dpic7dt9hy" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二进制/">二进制</a></li></ul>
-
     </footer>
   </div>
   
@@ -503,7 +501,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -511,7 +509,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
@@ -521,7 +519,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分法/">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单例/">单例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启动模式/">启动模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
     </div>
@@ -531,9 +529,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 10px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/Retrofit/" style="font-size: 10px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/二分法/" style="font-size: 10px;">二分法</a> <a href="/tags/二进制/" style="font-size: 15px;">二进制</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/单例/" style="font-size: 10px;">单例</a> <a href="/tags/启动模式/" style="font-size: 10px;">启动模式</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 15px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/Retrofit/" style="font-size: 10px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/二分法/" style="font-size: 10px;">二分法</a> <a href="/tags/二进制/" style="font-size: 15px;">二进制</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/单例/" style="font-size: 10px;">单例</a> <a href="/tags/启动模式/" style="font-size: 10px;">启动模式</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
   </div>
 
@@ -550,28 +548,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
+            <a href="/2017/12/02/Android-Studio开发ARCore-初体验/">Android Studio开发ARCore 初体验</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/android-设备id问题汇总/">android 设备id问题汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Application-问题总结/">Application 问题总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/自定义view－时钟表-二/">自定义view－时钟表(二)</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/02/自定义view－时钟表/">自定义view－时钟表</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/26/混淆总结/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/26/Maven私服搭建/">Maven私服搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/25/JitPack发布开源库/">JitPack发布开源库</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/23/自定义View－饼状图/">自定义View－饼状图</a>
           </li>
         
       </ul>
@@ -587,7 +585,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 bei1999<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

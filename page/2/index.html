@@ -49,9 +49,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,6 +61,212 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/16/webview-遇到的坑/" class="article-date">
+  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/webview-遇到的坑/">webview 遇到的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
+<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
+<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
+<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
+<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="cjapbv0fj001ni2dpjytjb4gp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-关于手机屏幕dp，px，以及density" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/16/关于手机屏幕dp，px，以及density/" class="article-date">
+  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/关于手机屏幕dp，px，以及density/">关于手机屏幕dp，px，以及density</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概念区别"><a href="#概念区别" class="headerlink" title="概念区别"></a>概念区别</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">单位</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">dip</td>
+<td>一个基于density的抽象单位，如果一个160dpi的屏幕，1dp=1px，不依赖像素</td>
+</tr>
+<tr>
+<td style="text-align:left">dp</td>
+<td>同上，和dip一样</td>
+</tr>
+<tr>
+<td style="text-align:left">px</td>
+<td>pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素</td>
+</tr>
+<tr>
+<td style="text-align:left">sp</td>
+<td>scaled pixels(放大像素). 主要用于字体显示best for textsize。</td>
+</tr>
+<tr>
+<td style="text-align:left">pt</td>
+<td>point，是一个标准的长度单位，1pt＝1/72英寸，用于印刷业，非常简单易用。</td>
+</tr>
+<tr>
+<td style="text-align:left">in</td>
+<td>（英寸）：长度单位。</td>
+</tr>
+<tr>
+<td style="text-align:left">mm</td>
+<td>（毫米）：长度单位。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="单位转换"><a href="#单位转换" class="headerlink" title="单位转换"></a>单位转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/06/01</span></span><br><span class="line"><span class="comment"> * desc   : sp相关工具类</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DisplayUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将px值转换为dip或dp值，保证尺寸大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pxValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性density）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">px2dip</span><span class="params">(Context context, <span class="keyword">float</span> pxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (pxValue / scale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将dip或dp值转换为px值，保证尺寸大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dipValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性density）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">dip2px</span><span class="params">(Context context, <span class="keyword">float</span> dipValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (dipValue * scale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将px值转换为sp值，保证文字大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pxValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fontScale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性scaledDensity）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">px2sp</span><span class="params">(Context context, <span class="keyword">float</span> pxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> fontScale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (pxValue / fontScale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将sp值转换为px值，保证文字大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> spValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fontScale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性scaledDensity）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sp2px</span><span class="params">(Context context, <span class="keyword">float</span> spValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> fontScale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (spValue * fontScale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/16/关于手机屏幕dp，px，以及density/" data-id="cjapbv0fn001yi2dppq5ziklo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/16/android-webview-遇到的坑/" class="article-date">
+  <time datetime="2017-08-16T13:43:01.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/android-webview-遇到的坑/">android webview 遇到的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
+<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
+<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
+<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
+<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/16/android-webview-遇到的坑/" data-id="cjapbv0f20013i2dpjysi97xn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" class="article-date">
+  <time datetime="2017-04-17T10:48:11.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/">Retrofit2 Okhttp3 返回ResponseBody出现java.lang.IllegalStateException: closed</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天在retrofit调试网络请求的时候一直在onError()里面出现异常抛出java.lang.IllegalStateException: closed<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">AppService appService = AppEngine.getInstance().getAppService();</span><br><span class="line">        subscriptionList.add(appService.oauthLogin(socialLoginRequestBean)</span><br><span class="line">                .map(<span class="keyword">new</span> Func1&lt;SocialLoginResponseBean, SocialLoginResponseBean&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> SocialLoginResponseBean <span class="title">call</span><span class="params">(SocialLoginResponseBean socialLoginResponseBean)</span> </span>&#123;</span><br><span class="line">                        <span class="comment">//status</span></span><br><span class="line">                        LogUtil.d(<span class="string">"call-------------"</span>);</span><br><span class="line">                        <span class="keyword">if</span> (!TextUtils.isEmpty(socialLoginResponseBean.errorMsg)) &#123;</span><br><span class="line">                            LogUtil.d(<span class="string">"socialLoginResponseBean.errorMsg :"</span>+socialLoginResponseBean.errorMsg);</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> ExplicitException(socialLoginResponseBean.getErrorMsg());</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> socialLoginResponseBean;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .onErrorResumeNext(<span class="keyword">new</span> Func1&lt;Throwable, Observable&lt;? extends SocialLoginResponseBean&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> Observable&lt;? extends SocialLoginResponseBean&gt; call(Throwable throwable) &#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"打印throwable :"</span>+throwable.getMessage());</span><br><span class="line">                        <span class="keyword">return</span> ExceptionUtil.getNetworkError(throwable);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .subscribeOn(Schedulers.io())</span><br><span class="line">                .unsubscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Subscriber&lt;SocialLoginResponseBean&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"登录请求打印onError()"</span>+e.getMessage());</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(SocialLoginResponseBean socialLoginResponseBean)</span> </span>&#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"登录请求打印token"</span>+socialLoginResponseBean.getData().getUserToken());</span><br><span class="line">                        handleResponse(socialLoginResponseBean);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;));</span><br></pre></td></tr></table></figure></p>
+<p>发现问题在下面的调试代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> builder.addNetworkInterceptor(<span class="keyword">new</span> AppInterceptor());</span><br><span class="line"> builder.addInterceptor(<span class="keyword">new</span> Interceptor() &#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        String responseStr = response.body().string();</span><br><span class="line">        LogUtil.e(<span class="string">"request:"</span> + request.body().toString()+ <span class="string">"respone:"</span> + responseStr);</span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>基于okhttp3的返回对象ResponseBody ,其中的string()方法只可调用一次,调用完毕会执行closed相关方法.再调用会报错</strong></p>
+<p>正确的打印log姿势为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</span><br><span class="line">    HttpLoggingInterceptor logging = <span class="keyword">new</span> HttpLoggingInterceptor();</span><br><span class="line">    logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);</span><br><span class="line">    logging.setLevel(HttpLoggingInterceptor.Level.BODY);</span><br><span class="line">    builder.addInterceptor(logging).build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>gradle 导包<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'</span><br></pre></td></tr></table></figure></p>
+<p>log tags :OkHttp</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" data-id="cjapbv0ed000pi2dp1kxealgp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-冒泡排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -90,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/16/冒泡排序/" data-id="cjapblvtx001vh1dpjurva015" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/04/16/冒泡排序/" data-id="cjapbv0fm001ui2dpptzih404" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -983,7 +1189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/安卓开发规范updating/" data-id="cjapblvty001zh1dphkafx838" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/03/14/安卓开发规范updating/" data-id="cjapbv0fn001zi2dpvcvqtbry" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
@@ -1021,7 +1227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/29/Android-应用进程保活处理/" data-id="cjapblvsf0002h1dpg38dvrli" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/12/29/Android-应用进程保活处理/" data-id="cjapbv0dr0006i2dpposk2sha" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1057,7 +1263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/29/Android-内存泄漏/" data-id="cjapblvs40000h1dppkg9evmy" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/12/29/Android-内存泄漏/" data-id="cjapbv0dq0005i2dphu8i1kdc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1100,7 +1306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/20/Fresco-加载超大gif过程/" data-id="cjapblvsv000bh1dpt0q6xeso" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/12/20/Fresco-加载超大gif过程/" data-id="cjapbv0ds0007i2dp1sqp4mzt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1138,7 +1344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/20/Glide-加载gif使用/" data-id="cjapblvsr0007h1dpy6zi8y5i" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/12/20/Glide-加载gif使用/" data-id="cjapbv0dw000ai2dp02wizblg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Glide/">Glide</a></li></ul>
@@ -1150,175 +1356,10 @@
 
 
   
-    <article id="post-Retrofit-传递数组参数" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/18/Retrofit-传递数组参数/" class="article-date">
-  <time datetime="2016-12-18T06:12:26.000Z" itemprop="datePublished">2016-12-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/18/Retrofit-传递数组参数/">Retrofit 传递数组参数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>Http GET 请求接口数据类型如下：</em><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checkNewsId"</span>: [</span><br><span class="line">    <span class="string">"string"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"curPage"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">"position"</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><em>ApiService 定义</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET</span>(<span class="string">"news/list"</span>)</span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">getData</span><span class="params">(@Query(<span class="string">"curPage"</span>)</span> String curPage,@<span class="title">Query</span><span class="params">(<span class="string">"position"</span>)</span> String position,  @<span class="title">Query</span><span class="params">(<span class="string">"checkNewsId"</span>)</span> String... checkNewsId)</span>;</span><br></pre></td></tr></table></figure></p>
-<p><em>或者</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET</span>(<span class="string">"news/list"</span>)</span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">getData</span><span class="params">(@Query(<span class="string">"curPage"</span>)</span> String curPage,@<span class="title">Query</span><span class="params">(<span class="string">"position"</span>)</span> String position,  @<span class="title">Query</span><span class="params">(<span class="string">"checkNewsId"</span>)</span> String[] checkNewsId)</span>;</span><br></pre></td></tr></table></figure></p>
-<p><em>两种写法最后请求都是循环拼接方式请求</em><br><strong>checkNewsId ＝xx&amp;checkNewsId ＝ss</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/18/Retrofit-传递数组参数/" data-id="cjapblvt5000nh1dpww54egou" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Jenkins-问题汇总篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/30/Jenkins-问题汇总篇/" class="article-date">
-  <time datetime="2016-10-30T13:19:11.000Z" itemprop="datePublished">2016-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/30/Jenkins-问题汇总篇/">Jenkins 问题汇总篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>彻底卸载jenkins</em><br><strong>run this on Terminal:</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh "/Library/Application Support/Jenkins/Uninstall.command"</span><br></pre></td></tr></table></figure></p>
-<p><em>或 依次执行下面的命令</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist    </span><br><span class="line">sudo rm !$    </span><br><span class="line">sudo rm -rf /Applications/Jenkins "/Library/Application Support/Jenkins" /Library/Documentation/Jenkins    </span><br><span class="line">sudo rm -rf /Users/Shared/Jenkins    </span><br><span class="line"><span class="meta">#</span> if you want to get rid of all the jobs and builds:    </span><br><span class="line">sudo dscl . -delete /Users/jenkins    </span><br><span class="line"><span class="meta">#</span> delete the jenkins user and group (if you chose to use them):    </span><br><span class="line">sudo dscl . -delete /Groups/jenkins</span><br></pre></td></tr></table></figure></p>
-<p><em>设定jenkins 的密码</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo dscl . passwd /Users/jenkins 1234</span><br><span class="line">su jenkins</span><br><span class="line">Password: </span><br><span class="line">bash-3.2$ vim /Users/Shared/Jenkins/Home/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure></p>
-<p><em>mac android sdk 环境变量配置</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xxxMBP:~ lizhanbei$ cd ~</span><br><span class="line">xxxMBP:~ lizhanbei$ touch .bash_profile</span><br><span class="line">xxxMBP:~ lizhanbei$ open -e .bash_profile</span><br><span class="line">xxxMBP:~ lizhanbei$ source .bash_profile</span><br></pre></td></tr></table></figure></p>
-<p>export ANDROID_HOME=/Users/xxx/Library/Android/sdk<br>export PATH=$ANDROID_HOME/platform-tools:$PATH<br>export PATH=$ANDROID_HOME/tools:$PATH<br>export PATH=$ANDROID_HOME/build-tools/22.0.1:$PATH</p>
-<p><em>Jenkins 提示没有找到ANDROID_HOME的环境变量</em><br><strong>解决办法：</strong></p>
-<ul>
-<li>Go to Jenkins &gt; Manage Jenkins &gt; Configure System</li>
-<li>Check “Environment variables</li>
-<li>add name: ANDROID_HOME, value -&gt; your android sdk dir</li>
-<li>click “add”</li>
-<li>SCROLL DOWN CLICK SAVE</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/30/Jenkins-问题汇总篇/" data-id="cjapblvso0006h1dproejh4vi" class="article-share-link">Partager</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Jenkins-扩展篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/30/Jenkins-扩展篇/" class="article-date">
-  <time datetime="2016-10-30T13:18:27.000Z" itemprop="datePublished">2016-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/30/Jenkins-扩展篇/">Jenkins 扩展篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/30/Jenkins-扩展篇/" data-id="cjapblvsw000dh1dp6q9ybx9d" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Jenkins-使用篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/30/Jenkins-使用篇/" class="article-date">
-  <time datetime="2016-10-30T13:17:13.000Z" itemprop="datePublished">2016-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/30/Jenkins-使用篇/">Jenkins 使用篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/30/Jenkins-使用篇/" data-id="cjapblvsu000ah1dpfc7ymqws" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -1326,7 +1367,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
@@ -1336,7 +1377,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分法/">二分法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单例/">单例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启动模式/">启动模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态/">状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
     </div>
@@ -1346,9 +1387,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 10px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/Retrofit/" style="font-size: 10px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/二分法/" style="font-size: 10px;">二分法</a> <a href="/tags/二进制/" style="font-size: 15px;">二进制</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/单例/" style="font-size: 10px;">单例</a> <a href="/tags/启动模式/" style="font-size: 10px;">启动模式</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/Activity/" style="font-size: 15px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 15px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/Retrofit/" style="font-size: 10px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 15px;">jenkins</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/二分法/" style="font-size: 10px;">二分法</a> <a href="/tags/二进制/" style="font-size: 15px;">二进制</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/单例/" style="font-size: 10px;">单例</a> <a href="/tags/启动模式/" style="font-size: 10px;">启动模式</a> <a href="/tags/状态/" style="font-size: 10px;">状态</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
   </div>
 
@@ -1365,28 +1406,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
+            <a href="/2017/12/02/Android-Studio开发ARCore-初体验/">Android Studio开发ARCore 初体验</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/android-设备id问题汇总/">android 设备id问题汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Application-问题总结/">Application 问题总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/自定义view－时钟表-二/">自定义view－时钟表(二)</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/02/自定义view－时钟表/">自定义view－时钟表</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/26/混淆总结/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/26/Maven私服搭建/">Maven私服搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/25/JitPack发布开源库/">JitPack发布开源库</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/23/自定义View－饼状图/">自定义View－饼状图</a>
           </li>
         
       </ul>
@@ -1402,7 +1443,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 bei1999<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
