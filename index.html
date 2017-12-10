@@ -62,6 +62,79 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-android-设备id问题汇总-0" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/10/android-设备id问题汇总-0/" class="article-date">
+  <time datetime="2017-12-10T14:12:07.000Z" itemprop="datePublished">2017-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/10/android-设备id问题汇总-0/">android 设备id问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经常听到某某需求提要获取设备唯一id，用途就多了，要跟踪设备，做个收藏了（看完全文你就知道这个需求并不完美实现）</p>
+<h3 id="IMEI"><a href="#IMEI" class="headerlink" title="IMEI"></a>IMEI</h3><p>这个算是最常见的了</p>
+<p>android 中获取imei 代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取手机IMEI号</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 需要动态权限: android.permission.READ_PHONE_STATE</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getIMEI</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);</span><br><span class="line">        String imei = telephonyManager.getDeviceId();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> imei;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><ol>
+<li>需求电话包下面权限,android 6.0后需要授权（授权相关讲解可以参阅我的其android 6.0 权限管理）<br>用户拒绝的情况下就获取不到。</li>
+<li>android 设备很多，山寨机可能是重复的或者直接取不到。</li>
+<li>获取的是电话包下的，也就是说需要有电话包或者说有电话功能的设备，pad没戏。</li>
+</ol>
+<p>下面的系统源码说明了一切<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">**</span><br><span class="line">     * Returns the unique device ID, <span class="keyword">for</span> example, the IMEI <span class="keyword">for</span> GSM and the MEID</span><br><span class="line">     * or ESN <span class="keyword">for</span> CDMA phones. Return <span class="keyword">null</span> <span class="keyword">if</span> device ID is not available.</span><br><span class="line">     *</span><br><span class="line">     * &lt;p&gt;Requires Permission:</span><br><span class="line">     *   &#123;@link android.Manifest.permission#READ_PHONE_STATE READ_PHONE_STATE&#125;</span><br><span class="line">     */</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDeviceId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ITelephony telephony = getITelephony();</span><br><span class="line">            <span class="keyword">if</span> (telephony == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> telephony.getDeviceId(mContext.getOpPackageName());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Serial-Number"><a href="#Serial-Number" class="headerlink" title="Serial Number"></a>Serial Number</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.os.Build.SERIAL</span><br></pre></td></tr></table></figure>
+<p>系统源码获取的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SERIAL = getString(<span class="string">"ro.serialno"</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h4><ol>
+<li>android 2.3以上，据说有些设备获取有问题</li>
+</ol>
+<h3 id="SimSerialNumber"><a href="#SimSerialNumber" class="headerlink" title="SimSerialNumber"></a>SimSerialNumber</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);</span><br><span class="line">String simSerialNum = tm.getSimSerialNumber();</span><br></pre></td></tr></table></figure>
+<h4 id="缺点：-2"><a href="#缺点：-2" class="headerlink" title="缺点："></a>缺点：</h4><ol>
+<li>需求电话包下面权限,android 6.0后需要授权（授权相关讲解可以参阅我的其android 6.0 权限管理）<br>用户拒绝的情况下就获取不到。</li>
+<li>需要正常可用的sim卡，没卡的设备或者pad 不能获取。</li>
+<li>跟sim卡相关，号码唯一性不能完全放心<h3 id="MacAddress"><a href="#MacAddress" class="headerlink" title="MacAddress"></a>MacAddress</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context.getSystemService(Context.WIFI_SERVICE);</span><br><span class="line">String macAddress = wifi.getConnectionInfo().getMacAddress();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="缺点：-3"><a href="#缺点：-3" class="headerlink" title="缺点："></a>缺点：</h4><ol>
+<li>需要 ACCESS_WIFI_STATE 权限，android 6.0后需要授权（授权相关讲解可以参阅我的其android 6.0 权限管理）<br>用户拒绝的情况下就获取不到。</li>
+<li>Android 6.0 使用存在风险，google service 会提示有害程序。</li>
+</ol>
+<h3 id="ANDROID-ID"><a href="#ANDROID-ID" class="headerlink" title="ANDROID_ID"></a>ANDROID_ID</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String androidId = android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);</span><br></pre></td></tr></table></figure>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol>
+<li>设备第一次启动的时候生成并保存，并且可能会在恢复出厂设置后重置该值。理论上是大部分是重置的。</li>
+<li>跟操作系统相关，多个用户帐号，获取不同。</li>
+<li>android 设备很多，山寨机可能是重复的或者直接取不到。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上面列出了一些获取到的系统id，使用还是要根据自己的情况使用，若允许用户授权操作，imei可以考虑，若不希望打扰用户，不在乎刷机等问题，可以使用android_id,极端情况可以考虑服务器产生id，下发的方式，比如做登录系统oauth 2.0等</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/10/android-设备id问题汇总-0/" data-id="cjb0ungeh001vq9dplz0syxoo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-构建模式实现与研究" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/10/构建模式实现与研究/" class="article-date">
@@ -109,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/10/构建模式实现与研究/" data-id="cjb0u00ub002zoudpzxabdh1b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/10/构建模式实现与研究/" data-id="cjb0ungf70031q9dp7f3avecj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -164,7 +237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/10/策略模式实现与研究/" data-id="cjb0u00ud0033oudpblnb0r3b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/10/策略模式实现与研究/" data-id="cjb0ungfa0038q9dppvznei20" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -220,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/10/观察者模式实现与研究/" data-id="cjb0u00up003koudp79ji7mkh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/10/观察者模式实现与研究/" data-id="cjb0ungfg003lq9dp5bjwjg1r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -275,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/10/代理模式实现与研究/" data-id="cjb0u00u4002goudpohrzp0q7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/10/代理模式实现与研究/" data-id="cjb0ungew002jq9dpbhmostxv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -330,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/10/工厂模式实现与研究/" data-id="cjb0u00ua002woudppuycta8q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/10/工厂模式实现与研究/" data-id="cjb0ungf5002wq9dpkpjabc3w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -389,80 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="cjb0u00se0005oudpalgzchtr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android-设备id问题汇总" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/12/02/Android-设备id问题汇总/" class="article-date">
-  <time datetime="2017-12-02T12:39:57.000Z" itemprop="datePublished">2017-12-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/02/Android-设备id问题汇总/">Android 设备id问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经常听到某某需求提要获取设备唯一id，用途就多了，要跟踪设备，做个收藏了（看完全文你就知道这个需求并不完美实现）</p>
-<h3 id="IMEI"><a href="#IMEI" class="headerlink" title="IMEI"></a>IMEI</h3><p>这个算是最常见的了</p>
-<p>android 中获取imei 代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取手机IMEI号</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 需要动态权限: android.permission.READ_PHONE_STATE</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getIMEI</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);</span><br><span class="line">        String imei = telephonyManager.getDeviceId();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> imei;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><ol>
-<li>需求电话包下面权限,android 6.0后需要授权（授权相关讲解可以参阅我的其android 6.0 权限管理）<br>用户拒绝的情况下就获取不到。</li>
-<li>android 设备很多，山寨机可能是重复的或者直接取不到。</li>
-<li>获取的是电话包下的，也就是说需要有电话包或者说有电话功能的设备，pad没戏。</li>
-</ol>
-<p>下面的系统源码说明了一切<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">**</span><br><span class="line">     * Returns the unique device ID, <span class="keyword">for</span> example, the IMEI <span class="keyword">for</span> GSM and the MEID</span><br><span class="line">     * or ESN <span class="keyword">for</span> CDMA phones. Return <span class="keyword">null</span> <span class="keyword">if</span> device ID is not available.</span><br><span class="line">     *</span><br><span class="line">     * &lt;p&gt;Requires Permission:</span><br><span class="line">     *   &#123;@link android.Manifest.permission#READ_PHONE_STATE READ_PHONE_STATE&#125;</span><br><span class="line">     */</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDeviceId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ITelephony telephony = getITelephony();</span><br><span class="line">            <span class="keyword">if</span> (telephony == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">return</span> telephony.getDeviceId(mContext.getOpPackageName());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Serial-Number"><a href="#Serial-Number" class="headerlink" title="Serial Number"></a>Serial Number</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.os.Build.SERIAL</span><br></pre></td></tr></table></figure>
-<p>系统源码获取的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SERIAL = getString(<span class="string">"ro.serialno"</span>);</span><br></pre></td></tr></table></figure></p>
-<h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h4><ol>
-<li>android 2.3以上，据说有些设备获取有问题</li>
-</ol>
-<h3 id="SimSerialNumber"><a href="#SimSerialNumber" class="headerlink" title="SimSerialNumber"></a>SimSerialNumber</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);</span><br><span class="line">String simSerialNum = tm.getSimSerialNumber();</span><br></pre></td></tr></table></figure>
-<h4 id="缺点：-2"><a href="#缺点：-2" class="headerlink" title="缺点："></a>缺点：</h4><ol>
-<li>需求电话包下面权限,android 6.0后需要授权（授权相关讲解可以参阅我的其android 6.0 权限管理）<br>用户拒绝的情况下就获取不到。</li>
-<li>需要正常可用的sim卡，没卡的设备或者pad 不能获取。</li>
-<li>跟sim卡相关，号码唯一性不能完全放心<h3 id="MacAddress"><a href="#MacAddress" class="headerlink" title="MacAddress"></a>MacAddress</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context.getSystemService(Context.WIFI_SERVICE);</span><br><span class="line">String macAddress = wifi.getConnectionInfo().getMacAddress();</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="缺点：-3"><a href="#缺点：-3" class="headerlink" title="缺点："></a>缺点：</h4><ol>
-<li>需要 ACCESS_WIFI_STATE 权限，android 6.0后需要授权（授权相关讲解可以参阅我的其android 6.0 权限管理）<br>用户拒绝的情况下就获取不到。</li>
-<li>Android 6.0 使用存在风险，google service 会提示有害程序。</li>
-</ol>
-<h3 id="ANDROID-ID"><a href="#ANDROID-ID" class="headerlink" title="ANDROID_ID"></a>ANDROID_ID</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String androidId = android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);</span><br></pre></td></tr></table></figure>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol>
-<li>设备第一次启动的时候生成并保存，并且可能会在恢复出厂设置后重置该值。理论上是大部分是重置的。</li>
-<li>跟操作系统相关，多个用户帐号，获取不同。</li>
-<li>android 设备很多，山寨机可能是重复的或者直接取不到。</li>
-</ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上面列出了一些获取到的系统id，使用还是要根据自己的情况使用，若允许用户授权操作，imei可以考虑，若不希望打扰用户，不在乎刷机等问题，可以使用android_id,极端情况可以考虑服务器产生id，下发的方式，比如做登录系统oauth 2.0等</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Android-设备id问题汇总/" data-id="cjb0u00sy000noudpgcqoa85s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="cjb0ungcz0004q9dpbig57vl5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -510,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="cjb0u00su000joudpktie2iiw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="cjb0ungdc000cq9dpoks93xn3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -557,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="cjb0u00ui0036oudpfzfyt0n6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="cjb0ungfd003fq9dpqo19pg30" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/">CustomView</a></li></ul>
@@ -609,7 +609,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjb0u00ut003roudpoepfcvna" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjb0ungff003jq9dplavsn8to" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/">CustomView</a></li></ul>
@@ -644,7 +644,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li></ul>
     </div>
   </div>
 
@@ -654,7 +654,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 13.33px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
+      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 13.33px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a>
     </div>
   </div>
 
@@ -676,6 +676,10 @@
       <ul>
         
           <li>
+            <a href="/2017/12/10/android-设备id问题汇总-0/">android 设备id问题汇总</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/10/构建模式实现与研究/">构建模式实现与研究</a>
           </li>
         
@@ -689,10 +693,6 @@
         
           <li>
             <a href="/2017/12/10/代理模式实现与研究/">代理模式实现与研究</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/10/工厂模式实现与研究/">工厂模式实现与研究</a>
           </li>
         
       </ul>
