@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>模版方法模式实现与研究 | bei1999 的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="定义定义一个操作中的算法的框架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可冲定义该算法的某些特定步骤。 场景模拟 android 系统的 AsyncTask 源码分析 项目中的实践  实现 android 系统的 AsyncTask 源码分析12345678910111213141516171819">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模版方法模式实现与研究">
+<meta property="og:url" content="http://yoursite.com/2017/12/16/模版方法模式实现与研究/index.html">
+<meta property="og:site_name" content="bei1999 的博客">
+<meta property="og:description" content="定义定义一个操作中的算法的框架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可冲定义该算法的某些特定步骤。 场景模拟 android 系统的 AsyncTask 源码分析 项目中的实践  实现 android 系统的 AsyncTask 源码分析123456789101112131415161718192021222324252627282930313233343536373839">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-16T01:54:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模版方法模式实现与研究">
+<meta name="twitter:description" content="定义定义一个操作中的算法的框架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可冲定义该算法的某些特定步骤。 场景模拟 android 系统的 AsyncTask 源码分析 项目中的实践  实现 android 系统的 AsyncTask 源码分析123456789101112131415161718192021222324252627282930313233343536373839">
+  
+    <link rel="alternate" href="/atom.xml" title="bei1999 的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">bei1999 的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-模版方法模式实现与研究" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/16/模版方法模式实现与研究/" class="article-date">
+  <time datetime="2017-12-16T01:52:24.000Z" itemprop="datePublished">2017-12-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Design-Pattern/">Design Pattern</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      模版方法模式实现与研究
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义一个操作中的算法的框架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可冲定义该算法的某些特定步骤。</p>
+<h2 id="场景模拟"><a href="#场景模拟" class="headerlink" title="场景模拟"></a>场景模拟</h2><ul>
+<li>android 系统的 AsyncTask 源码分析</li>
+<li>项目中的实践</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>android 系统的 AsyncTask 源码分析<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">@MainThread</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> AsyncTask&lt;Params, Progress, Result&gt; <span class="title">executeOnExecutor</span><span class="params">(Executor exec,</span></span></span><br><span class="line"><span class="function"><span class="params">            Params... params)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mStatus != Status.PENDING) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (mStatus) &#123;</span><br><span class="line">                <span class="keyword">case</span> RUNNING:</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Cannot execute task:"</span></span><br><span class="line">                            + <span class="string">" the task is already running."</span>);</span><br><span class="line">                <span class="keyword">case</span> FINISHED:</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Cannot execute task:"</span></span><br><span class="line">                            + <span class="string">" the task has already been executed "</span></span><br><span class="line">                            + <span class="string">"(a task can be executed only once)"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mStatus = Status.RUNNING;</span><br><span class="line"></span><br><span class="line">        onPreExecute();</span><br><span class="line"></span><br><span class="line">        mWorker.mParams = params;</span><br><span class="line">        exec.execute(mFuture);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new asynchronous task. This constructor must be invoked on the UI thread.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AsyncTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mWorker = <span class="keyword">new</span> WorkerRunnable&lt;Params, Result&gt;() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> Result <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                mTaskInvoked.set(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</span><br><span class="line">                <span class="comment">//noinspection unchecked</span></span><br><span class="line">                Result result = doInBackground(mParams);</span><br><span class="line">                Binder.flushPendingCommands();</span><br><span class="line">                <span class="keyword">return</span> postResult(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        mFuture = <span class="keyword">new</span> FutureTask&lt;Result&gt;(mWorker) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">done</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    postResultIfNotInvoked(get());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    android.util.Log.w(LOG_TAG, e);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"An error occurred while executing doInBackground()"</span>,</span><br><span class="line">                            e.getCause());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (CancellationException e) &#123;</span><br><span class="line">                    postResultIfNotInvoked(<span class="keyword">null</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//FutureTask 为何物？</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a &#123;<span class="doctag">@code</span> FutureTask&#125; that will, upon running, execute the</span></span><br><span class="line"><span class="comment">     * given &#123;<span class="doctag">@code</span> Runnable&#125;, and arrange that &#123;<span class="doctag">@code</span> get&#125; will return the</span></span><br><span class="line"><span class="comment">     * given result on successful completion.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> runnable the runnable task</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> result the result to return on successful completion. If</span></span><br><span class="line"><span class="comment">     * you don't need a particular result, consider using</span></span><br><span class="line"><span class="comment">     * constructions of the form:</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> Future&lt;?&gt; f = new FutureTask&lt;Void&gt;(runnable, null)&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> NullPointerException if the runnable is null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FutureTask</span><span class="params">(Runnable runnable, V result)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.callable = Executors.callable(runnable, result);</span><br><span class="line">        <span class="keyword">this</span>.state = NEW;       <span class="comment">// ensure visibility of callable</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Result <span class="title">postResult</span><span class="params">(Result result)</span> </span>&#123;</span><br><span class="line">        <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">        Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,</span><br><span class="line">                <span class="keyword">new</span> AsyncTaskResult&lt;Result&gt;(<span class="keyword">this</span>, result));</span><br><span class="line">        message.sendToTarget();</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>AsyncTask 实用的时候，把耗时的方法放在doInBackground 中，在doInBackground执行钱一些初始化的操作放到onPreExecute方法中，最后执行onPreExecute方法，构建AsyncTask任务的时候，最后调用了execute方法即可，这个执行的流程其实是一个框架，具体的实现需要重载相关的子类去手动完成，但是他的执行算法框架是固定的，调用execute 依次执行onPreExecute,doInbackground,onPostExecute等方法，从上面的源码可以看到在执行execute方法的之前执行了onPreExecute()，然后通过mFuture 对象进行后续的操作，mFuture的产生依赖于mWorker，mFuture = new FutureTask，而FutureTask其实是将产生的线程交给了线程池管理，必然doInBackground(mParams)方法所在的是异步环境工作的，后面执行完成之后通过handler 发送对应的message，返回安卓主线程结果。</p>
+<h2 id="项目中的实践"><a href="#项目中的实践" class="headerlink" title="项目中的实践"></a>项目中的实践</h2><p>通过上面的机制，最直接联想到的就是我们项目经常用到BaseActivity里面写的一些顺序加载的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.support.annotation.Nullable;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater;</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/14</span></span><br><span class="line"><span class="comment"> * desc   : 基类</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ViewGroup mViewGroup;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        mViewGroup = (ViewGroup) LayoutInflater.from(<span class="keyword">this</span>).inflate(getLayoutId(), <span class="keyword">null</span>);</span><br><span class="line">        setContentView(mViewGroup);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************子类实现*****************************/</span></span><br><span class="line">    <span class="comment">//获取布局文件</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getLayoutId</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initPresenter</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化view</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail :</span></span><br><span class="line"><span class="comment"> * time   : 2017/12/14</span></span><br><span class="line"><span class="comment"> * desc   :</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity09</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLayoutId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> R.layout.activity_main;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initPresenter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//TODO</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//TODO</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面的例子通过BaseActivity 的onCreate()内部对布局的加载简化，子类实用的时候直接设置对应的view即可，而且还可以对整个view在加载之前得到控制的方法，后面几个方法的重载也一样。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/16/模版方法模式实现与研究/" data-id="cjb8owhzt002ymxdpvakpklk1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/16/备忘录模式实现与研究/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          备忘录模式实现与研究
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/16/组合模式实现与研究/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">组合模式实现与研究</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Config/">Config</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CustomView/">CustomView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/CustomView/" style="font-size: 13.33px;">CustomView</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/16/备忘录模式实现与研究/">备忘录模式实现与研究</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/16/模版方法模式实现与研究/">模版方法模式实现与研究</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/16/组合模式实现与研究/">组合模式实现与研究</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/16/装饰者模式（Decorator）实现与研究/">装饰者模式（Decorator）实现与研究</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/16/适配器模式实现与研究/">适配器模式实现与研究</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 bei1999<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

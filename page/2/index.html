@@ -62,6 +62,267 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-工厂模式实现与研究" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/10/工厂模式实现与研究/" class="article-date">
+  <time datetime="2017-12-10T13:44:33.000Z" itemprop="datePublished">2017-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Design-Pattern/">Design Pattern</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/10/工厂模式实现与研究/">工厂模式实现与研究</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>调用工厂里的方法来生产对象(产品)的。</p>
+<h2 id="场景模拟"><a href="#场景模拟" class="headerlink" title="场景模拟"></a>场景模拟</h2><p>以江南皮革厂举例说明。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>普通工厂模式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 定义产品接口</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 双肩包</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackPack</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 手提包</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandBag</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 钱包</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wallet</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 江南皮革厂</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BagFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">productBag</span><span class="params">(String type)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"backpack"</span>.equals(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> BackPack();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"handbag"</span>.equals(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> HandBag();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"wallet"</span>.equals(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Wallet();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"没有这种类型..."</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主类调用</span></span><br><span class="line"> BagFactory bagFactory = <span class="keyword">new</span> BagFactory();</span><br><span class="line"> Product product = bagFactory.productBag(<span class="string">"wallet"</span>);</span><br><span class="line"> product.makePackage();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的例子说明了江南皮革厂生产几种不同的包包，在调用的时候需要传参数去制造，但这种手动传参数有可能输入错误，可以用下面的反射实现工厂类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BagFactory02</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Product&gt; <span class="function">T <span class="title">createProduct</span><span class="params">(Class&lt;T&gt; clz)</span></span>&#123;</span><br><span class="line">        Product product=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            product=(Product) Class.forName(clz.getName()).newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (T) product;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用实现类</span></span><br><span class="line"> Product wallet = BagFactory02.createProduct(Wallet.class);</span><br><span class="line"> wallet.makePackage();</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>抽象工厂模式<br>随着业务订单增多，江南皮革厂没有倒闭，先需要拆分业务，生产工厂职能单一些，有了下面的方式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BagFactory03</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Product <span class="title">createProduct</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 成立双肩包厂</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackPackFatory</span> <span class="keyword">extends</span> <span class="title">BagFactory03</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BackPack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 成立钱包厂</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WalletFactory</span> <span class="keyword">extends</span> <span class="title">BagFactory03</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Wallet();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//单一职责，分厂生产不同类型</span></span><br><span class="line"> WalletFactory walletFactory = <span class="keyword">new</span> WalletFactory();</span><br><span class="line"> Product product02 = walletFactory.createProduct();</span><br><span class="line"> product02.makePackage();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上面的方式对工厂进行了抽象，使得每个工厂类进行了独立的运作，这种方式叫做抽象工厂模式。这样的好处是实现了职能单一处理。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面的例子通过java 简单的方式说明了下工厂模式的应用，在android 中能联想到的是线程池工厂的操作了，篇幅有限，有兴趣的可以去看看这部分的代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/10/工厂模式实现与研究/" data-id="cjb8owhzu0031mxdpkc7647d1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android-Studio开发ARCore-初体验" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/Android-Studio开发ARCore-初体验/" class="article-date">
+  <time datetime="2017-12-02T12:41:12.000Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/Android-Studio开发ARCore-初体验/">Android Studio开发ARCore 初体验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Google 目前发布了ARCore 为预览版，还没有推出正式版，做为技术储备，研究了下这块。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h4 id="设置开发环境"><a href="#设置开发环境" class="headerlink" title="设置开发环境"></a>设置开发环境</h4><ul>
+<li>安装 Android Studio 2.3 或者以上的版本，</li>
+<li>Android SDK版本7.0（API level 24）或者以上。<h4 id="支持设备"><a href="#支持设备" class="headerlink" title="支持设备"></a>支持设备</h4><img src="http://o8ra1yomr.bkt.clouddn.com/屏幕快照%202017-12-01%20上午11.55.08.png" width="400"></li>
+</ul>
+<h4 id="获得Android-Studio的ARCore-SDK"><a href="#获得Android-Studio的ARCore-SDK" class="headerlink" title="获得Android Studio的ARCore SDK"></a>获得Android Studio的ARCore SDK</h4><p>用下面的命令行克隆repository：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/google-ar/arcore-android-sdk.git</span><br></pre></td></tr></table></figure></p>
+<h4 id="设置ARCore-运行环境"><a href="#设置ARCore-运行环境" class="headerlink" title="设置ARCore 运行环境"></a>设置ARCore 运行环境</h4><ul>
+<li>下载<br><a href="https://github.com/google-ar/arcore-android-sdk/releases/download/sdk-preview/arcore-preview.apk" target="_blank" rel="noopener">ARCore Service </a> </li>
+<li>安装<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb install -r  arcore-preview.apk</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="运行-sample项目"><a href="#运行-sample项目" class="headerlink" title="运行 sample项目"></a>运行 sample项目</h2><p><img src="http://o8ra1yomr.bkt.clouddn.com/屏幕快照%202017-12-01%20下午2.44.37.png" width="400"></p>
+<p>由于手里没有上面符合条件的测试机，运行安装的apk，提示不支持<br>通过<a href="https://github.com/tomthecarrot/arcore-for-all.git" target="_blank" rel="noopener">Google ARCore for “unsupported” Android devices</a>这个项目通过修改绕过设备检测名单限制进行征集试验，于是用设备 huawei mate 9 pro 试验了下，还是因为设备硬件问题，没有最终显示出来。</p>
+<p><img src="http://o8ra1yomr.bkt.clouddn.com/Screenshot_20171201-112212.png" width="400" height="200"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面是在Android Studio中简单的尝试了下OpenGL下的ARCore 开发过程，可以使用ARCore with Unity 和 ARCore with Unreal。鉴于大部分ARCore开发都依赖于Unity 3d ，并且Unity 3d 的跨平台做的很好，一次编码可以导出多个平台（pc，android ，ios等）后面有时间的话会学习下Unity 3d 相关的开发工作。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developers.google.com/ar/discover/" target="_blank" rel="noopener">ARCore API </a></p>
+<p><a href="http://www.phonemore.com/samsung-galaxy-s8/models/764" target="_blank" rel="noopener">Samsung Galaxy S8 MODELS AND SPECS</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="cjb8owhxp0001mxdprg3el5ks" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Application-问题总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/Application-问题总结/" class="article-date">
+  <time datetime="2017-12-02T12:38:43.000Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/Application-问题总结/">Application 问题总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>实际开发项目中经常遇到关于application 的问题，总结一下吧</p>
+<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><h3 id="Application-onCreate-方法被反复调用？"><a href="#Application-onCreate-方法被反复调用？" class="headerlink" title="Application onCreate()方法被反复调用？"></a>Application onCreate()方法被反复调用？</h3><p>理论上认为android 系统中application 是一个单例（一点不假！）然而在项目中存在多进程时候，单例范围只能在本进程中，比如推送，地图等进程有时候会初始化application ，so需要判断下执行的进程名字。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!AppUtils.getCurProcessName(<span class="keyword">this</span>).equals(getPackageName())) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。"><a href="#极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。" class="headerlink" title="极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。"></a>极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JPushReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Context context;</span><br><span class="line">        <span class="keyword">private</span> ActivityLifecycleCallbacks activityLifecycleCallbacks;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.context = context;</span><br><span class="line">            MyApplication application = (MyApplication) context.getApplicationContext();</span><br><span class="line">            activityLifecycleCallbacks = application.activityLifecycleCallbacks;</span><br><span class="line"><span class="comment">//            如果应用处于前台做某些操作（一般此时，收到通知和点击通知栏做相同的操作）</span></span><br><span class="line">            <span class="keyword">if</span> (activityLifecycleCallbacks.isFront()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (activityLifecycleCallbacks.current() <span class="keyword">instanceof</span> SomeActivity) &#123;</span><br><span class="line"><span class="comment">//                    如果当前Activity是要跳转的Activity，做某些操作，一般不跳转，可用EventBus</span></span><br><span class="line">                    、、、</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//                    否则执行跳转或其他相关操作等</span></span><br><span class="line">                   、、、</span><br><span class="line">                &#125;</span><br><span class="line">                、、、</span><br><span class="line">            &#125;<span class="keyword">else</span>  <span class="keyword">if</span> (<span class="string">"cn.jpush.android.intent.NOTIFICATION_OPENED"</span>.equals(intent.getAction()))&#123;</span><br><span class="line"><span class="comment">//                应用处于不可见状态，一般点击通知栏是跳转到某个页面</span></span><br><span class="line">                、、、</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了上面的需求，关于app 所有的activity 的状态都可以获取和管理，比如说BaseActivity的方式或者每打开一个Activity把当前的引用加入到集合中的方式更优雅<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册ActivityListener</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerActivityListener</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.ICE_CREAM_SANDWICH) &#123;</span><br><span class="line">            registerActivityLifecycleCallbacks(<span class="keyword">new</span> ActivityLifecycleCallbacks() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityCreated</span><span class="params">(Activity activity, Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">null</span> == mActivitys) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    mActivitys.add(activity);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityStarted</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    Log.d(<span class="string">"bei"</span>, <span class="string">"register-onActivityStarted"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityResumed</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    Log.d(<span class="string">"bei"</span>, <span class="string">"register-onActivityResumed"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityPaused</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    Log.d(<span class="string">"bei"</span>, <span class="string">"register-onActivityPaused"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityStopped</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivitySaveInstanceState</span><span class="params">(Activity activity, Bundle outState)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityDestroyed</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">null</span> == activity &amp;&amp; mActivitys.isEmpty()) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (mActivitys.contains(activity)) &#123;</span><br><span class="line">                        mActivitys.remove(activity);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="crash-捕获"><a href="#crash-捕获" class="headerlink" title="crash 捕获"></a>crash 捕获</h3><p>使用过线上的bug 管理，本地写入文件方式的管理，最近发现个异常补货的工具包，适合在开发模式下进行直观的bug activity 日志显示，方便测试与开发沟通<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**crash异常捕获*/</span></span><br><span class="line"><span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</span><br><span class="line">    CustomActivityOnCrash.install(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>gradle 导入<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile 'cat.ereza:customactivityoncrash:1.5.0' //crash catch</span><br></pre></td></tr></table></figure></p>
+<p>这个gradle 包目前已经更新了，可以定制写页面参数，感兴趣的可以看看</p>
+<p><a href="https://github.com/Ereza/CustomActivityOnCrash.git" target="_blank" rel="noopener">项目地址</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="cjb8owhy8000cmxdpyfevnyt1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-自定义view－时钟表-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/自定义view－时钟表-二/" class="article-date">
+  <time datetime="2017-12-02T12:37:06.000Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/自定义view－时钟表-二/">自定义view－时钟表(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面用canvas 简单实现了一个数字表，接下来丰富下这个表！</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>练习使用canvas 的其他方法，添加指针和表盘刻度</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>指针 没有美工！暂时圆点代替吧。drawCircle<br>表盘刻度 360 先均分吧 drawLine<br>指针要旋转 canvas rotate（）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; DEFAULT_TOTAL_CLOCK_SCALE_LINE_NUM; i++) &#123;</span><br><span class="line">           canvas.drawLine(mClockViewCenterX, clockScaleLineStartY,</span><br><span class="line">                   mClockViewCenterX, clockScaleLineEndY, mPaint);</span><br><span class="line">           canvas.rotate(ANGLE_PER_SCALE, mClockViewCenterX, mClockViewCenterY);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>红点<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mPaint.setColor(mClockPointColor);</span><br><span class="line">        canvas.drawCircle(mClockPointCenterX, mClockPointCenterY, mClockPointRadius, mPaint);</span><br></pre></td></tr></table></figure></p>
+<p>测量部分<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> len = w &gt; h ? h : w;</span><br><span class="line">mClockViewRectF.set(<span class="number">0</span>, <span class="number">0</span>, len, len);</span><br><span class="line">mClockViewRectF.offset((w - len) / <span class="number">2</span>, (h - len) / <span class="number">2</span>);</span><br><span class="line">mClockViewCenterX = (<span class="keyword">int</span>) mClockViewRectF.centerX();</span><br><span class="line">mClockViewCenterY = (<span class="keyword">int</span>) mClockViewRectF.centerY();</span><br><span class="line">mDigitalTimeTextStartX</span><br></pre></td></tr></table></figure></p>
+<p>接下来还需找ui完善下表头等</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="cjb8owi06003wmxdpgkvqahm4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/">CustomView</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-自定义view－时钟表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/自定义view－时钟表/" class="article-date">
+  <time datetime="2017-12-02T12:30:48.000Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/自定义view－时钟表/">自定义view－时钟表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>用canval 画了简单的时钟，后面再扩展表界面绘画等。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><ul>
+<li>ValueAnimator 设置执行动画过程</li>
+<li>调用canvas.drawText（）</li>
+<li>使用Calendar 获取系统时间，并格式化</li>
+<li>控制时间边界问题</li>
+</ul>
+<h2 id="部分代码"><a href="#部分代码" class="headerlink" title="部分代码"></a>部分代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.bei.test.widget;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.animation.Animator;</span><br><span class="line"><span class="keyword">import</span> android.animation.AnimatorListenerAdapter;</span><br><span class="line"><span class="keyword">import</span> android.animation.ValueAnimator;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.res.TypedArray;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Color;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Paint;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Rect;</span><br><span class="line"><span class="keyword">import</span> android.support.annotation.Nullable;</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.view.animation.LinearInterpolator;</span><br><span class="line"><span class="keyword">import</span> com.bei.test.R;</span><br><span class="line"><span class="keyword">import</span> com.bei.test.utils.Constants;</span><br><span class="line"><span class="keyword">import</span> com.bei.test.utils.UiUtils;</span><br><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail :</span></span><br><span class="line"><span class="comment"> * time   : 2017/11/27</span></span><br><span class="line"><span class="comment"> * desc   : 学习Canvas draw</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClockView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CLOCK_ANIMATION_DURATION = <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_DEFAULT_DIGITAL_TIME_TEXT = <span class="string">"00:00"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_DIGITAL_TIME_TEXT_SIZE = <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mWidth = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mHeight = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> Calendar mCalendar;</span><br><span class="line">    <span class="keyword">public</span> Paint mPaint;</span><br><span class="line">    <span class="keyword">private</span> Rect mDigitalTimeTextRect;</span><br><span class="line">    <span class="keyword">private</span> Paint textPaint;</span><br><span class="line">    <span class="keyword">private</span> String mLastDigitalTimeStr;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> mLastTimeMillis;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mTimeTextSize;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ClockView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ClockView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ClockView</span><span class="params">(Context context, @Nullable AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        initData(context,attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">(Context context,AttributeSet attrs)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClockView);</span><br><span class="line">        mTimeTextSize = typedArray.getDimensionPixelSize(R.styleable.ClockView_timeTextSize,</span><br><span class="line">                UiUtils.dipToPx(context, DEFAULT_DIGITAL_TIME_TEXT_SIZE));</span><br><span class="line">        </span><br><span class="line">        textPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">        textPaint.setColor(Color.BLACK);        <span class="comment">// 设置颜色</span></span><br><span class="line">        textPaint.setStyle(Paint.Style.FILL);   <span class="comment">// 设置样式</span></span><br><span class="line">        textPaint.setTextSize(mTimeTextSize);              <span class="comment">// 设置字体大小</span></span><br><span class="line">        mDigitalTimeTextRect = <span class="keyword">new</span> Rect();</span><br><span class="line">        textPaint.getTextBounds(DEFAULT_DEFAULT_DIGITAL_TIME_TEXT, <span class="number">0</span>,</span><br><span class="line">                DEFAULT_DEFAULT_DIGITAL_TIME_TEXT.length(), mDigitalTimeTextRect);</span><br><span class="line">        textPaint.setStrokeWidth(<span class="number">2</span>);</span><br><span class="line">        textPaint.setStrokeCap(Paint.Cap.ROUND);</span><br><span class="line"></span><br><span class="line">        mCalendar = Calendar.getInstance();</span><br><span class="line">        mLastDigitalTimeStr = String.format(<span class="string">"%02d:%02d"</span>, mCalendar.get(Calendar.HOUR),</span><br><span class="line">                mCalendar.get(Calendar.MINUTE));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">        mWidth = w;</span><br><span class="line">        mHeight = h;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ValueAnimator valueAnimator = ValueAnimator.ofFloat(<span class="number">0</span>, <span class="number">360</span>);</span><br><span class="line">        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);</span><br><span class="line">        valueAnimator.setDuration(DEFAULT_CLOCK_ANIMATION_DURATION);</span><br><span class="line">        valueAnimator.setInterpolator(<span class="keyword">new</span> LinearInterpolator());</span><br><span class="line">        valueAnimator.addListener(<span class="keyword">new</span> AnimatorListenerAdapter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">super</span>.onAnimationStart(animation);</span><br><span class="line">                <span class="keyword">long</span> currentTimeMillis = System.currentTimeMillis();</span><br><span class="line">                mCalendar.setTimeInMillis(currentTimeMillis);</span><br><span class="line">                mLastDigitalTimeStr = String.format(<span class="string">"%02d:%02d"</span>, mCalendar.get(Calendar.HOUR),</span><br><span class="line">                        mCalendar.get(Calendar.MINUTE));</span><br><span class="line">                mLastTimeMillis = currentTimeMillis - mCalendar.get(Calendar.SECOND) * Constants.SECOND</span><br><span class="line">                        - mCalendar.get(Calendar.MILLISECOND);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        valueAnimator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</span><br><span class="line">                invalidate();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        valueAnimator.start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        updateTimeText(canvas);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateTimeText</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> currentTimeMillis = System.currentTimeMillis();</span><br><span class="line">        <span class="comment">// Use of abs() func is to prevent the user to adjust the time forward.</span></span><br><span class="line">        <span class="keyword">if</span> (Math.abs(currentTimeMillis - mLastTimeMillis) &gt;= Constants.MINUTE) &#123;</span><br><span class="line">            mLastTimeMillis = currentTimeMillis;</span><br><span class="line">            mCalendar.setTimeInMillis(currentTimeMillis);</span><br><span class="line">            mLastDigitalTimeStr = String.format(<span class="string">"%02d:%02d"</span>,</span><br><span class="line">                    mCalendar.get(Calendar.HOUR), mCalendar.get(Calendar.MINUTE));</span><br><span class="line">        &#125;</span><br><span class="line">        canvas.drawText(mLastDigitalTimeStr, mWidth / <span class="number">3</span>, mHeight / <span class="number">2</span>, textPaint);</span><br><span class="line">        Log.d(<span class="string">"bei"</span>, <span class="string">"ondraw"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行截屏</p>
+<p><img src="http://o8ra1yomr.bkt.clouddn.com/屏幕快照%202017-11-27%20下午6.25.34.png" width="400"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjb8owi07003zmxdpwqak1k32" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/">CustomView</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Maven私服搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/11/26/Maven私服搭建/" class="article-date">
@@ -114,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="cjb0ungdw000yq9dpau5lwc0x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="cjb8owhyk000tmxdphd4u5aoi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
@@ -171,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="cjb0ungdu000wq9dpyqca0v7k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="cjb8owhyo000ymxdp5lkomw7k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -217,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="cjb0ungfc003cq9dpqk2sco5g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="cjb8owi02003mmxdp351oaxcf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -301,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="cjb0ungcn0001q9dpy3cnuyss" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="cjb8owhxy0004mxdpywf63aw5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -348,1124 +609,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="cjb0unges002dq9dpfun58w85" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于手机屏幕dp，px，以及density" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/16/关于手机屏幕dp，px，以及density/" class="article-date">
-  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/关于手机屏幕dp，px，以及density/">关于手机屏幕dp，px，以及density</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概念区别"><a href="#概念区别" class="headerlink" title="概念区别"></a>概念区别</h2><table>
-<thead>
-<tr>
-<th style="text-align:left">单位</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">dip</td>
-<td>一个基于density的抽象单位，如果一个160dpi的屏幕，1dp=1px，不依赖像素</td>
-</tr>
-<tr>
-<td style="text-align:left">dp</td>
-<td>同上，和dip一样</td>
-</tr>
-<tr>
-<td style="text-align:left">px</td>
-<td>pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素</td>
-</tr>
-<tr>
-<td style="text-align:left">sp</td>
-<td>scaled pixels(放大像素). 主要用于字体显示best for textsize。</td>
-</tr>
-<tr>
-<td style="text-align:left">pt</td>
-<td>point，是一个标准的长度单位，1pt＝1/72英寸，用于印刷业，非常简单易用。</td>
-</tr>
-<tr>
-<td style="text-align:left">in</td>
-<td>（英寸）：长度单位。</td>
-</tr>
-<tr>
-<td style="text-align:left">mm</td>
-<td>（毫米）：长度单位。</td>
-</tr>
-</tbody>
-</table>
-<h2 id="单位转换"><a href="#单位转换" class="headerlink" title="单位转换"></a>单位转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/06/01</span></span><br><span class="line"><span class="comment"> * desc   : sp相关工具类</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DisplayUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将px值转换为dip或dp值，保证尺寸大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pxValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性density）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">px2dip</span><span class="params">(Context context, <span class="keyword">float</span> pxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (pxValue / scale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将dip或dp值转换为px值，保证尺寸大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dipValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性density）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">dip2px</span><span class="params">(Context context, <span class="keyword">float</span> dipValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (dipValue * scale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将px值转换为sp值，保证文字大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pxValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fontScale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性scaledDensity）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">px2sp</span><span class="params">(Context context, <span class="keyword">float</span> pxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> fontScale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (pxValue / fontScale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将sp值转换为px值，保证文字大小不变</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> spValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fontScale</span></span><br><span class="line"><span class="comment">     *            （DisplayMetrics类中属性scaledDensity）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sp2px</span><span class="params">(Context context, <span class="keyword">float</span> spValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">float</span> fontScale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (spValue * fontScale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/关于手机屏幕dp，px，以及density/" data-id="cjb0ungez002oq9dpxdiigeoq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-混淆总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/07/23/混淆总结/" class="article-date">
-  <time datetime="2017-07-23T14:50:30.000Z" itemprop="datePublished">2017-07-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/23/混淆总结/">混淆总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ProGuard简介"><a href="#ProGuard简介" class="headerlink" title="ProGuard简介"></a>ProGuard简介</h1><p>因为Java代码是非常容易反编码的，况且Android开发的应用程序是用Java代码写的，为了很好的保护Java源代码，我们需要对编译好后的class文件进行混淆。<br>ProGuard是一个混淆代码的开源项目，它的主要作用是混淆代码，殊不知ProGuard还包括以下4个功能。</p>
-<ul>
-<li>压缩(Shrink)：检测并移除代码中无用的类、字段、方法和特性（Attribute）。</li>
-<li>优化(Optimize)：对字节码进行优化，移除无用的指令。</li>
-<li>混淆(Obfuscate)：使用a，b，c，d这样简短而无意义的名称，对类、字段和方法进行重命名。</li>
-<li>预检(Preveirfy)：在Java平台上对处理后的代码进行预检，确保加载的class文件是可执行的。<br>总而言之，根据官网的翻译：Proguard是一个Java类文件压缩器、优化器、混淆器、预校验器。压缩环节会检测以及移除没有用到的类、字段、方法以及属性。优化环节会分析以及优化方法的字节码。混淆环节会用无意义的短变量去重命名类、变量、方法。这些步骤让代码更精简，更高效，也更难被逆向（破解）。</li>
-</ul>
-<h1 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">## Warning:library class android.test.AndroidTestCase extends or implements program class junit.framework.TestCase</span><br><span class="line">-dontwarn org.mockito.**</span><br><span class="line">-dontwarn sun.reflect.**</span><br><span class="line">-dontwarn android.test.**</span><br><span class="line"></span><br><span class="line">## deal for retrolambda </span><br><span class="line">-dontwarn java.lang.invoke.*</span><br><span class="line"></span><br><span class="line">## Warning:org.junit.internal.runners.statements.FailOnTimeout: can&apos;t find referenced class java.lang.management.ManagementFactory</span><br><span class="line"></span><br><span class="line">-dontwarn java.lang.management.**</span><br><span class="line">-keep class java.lang.management.**  &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">#---------------------------------3.与js互相调用的类------------------------</span><br><span class="line"></span><br><span class="line">## JavaScriptInterfaceBase 任何需要JS回调NATIVE接口的类请集成这个基类,混淆脚本不会对该类的子类进行混淆</span><br><span class="line">-keep class * extends com.xx.JavaScriptInterfaceBase &#123;</span><br><span class="line"></span><br><span class="line">       &lt;fields&gt;;</span><br><span class="line"></span><br><span class="line">       &lt;methods&gt;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">-keepattributes *Annotation*</span><br><span class="line">-keepattributes *JavascriptInterface*</span><br><span class="line">-keep class com.xx.ui.news.fragment.NewsDetailFragment &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">#-------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#---------------------------------4.反射相关的类和方法-----------------------</span><br><span class="line">-dontwarn com.xx.common.utils.**</span><br><span class="line">-keep class com.xx.common.utils.** &#123; *; &#125;</span><br><span class="line">-dontwarn com.xx.common.base.**</span><br><span class="line">-keep class com.xx.common.base.** &#123; *; &#125;</span><br><span class="line">-dontwarn com.xx.common.baserx.**</span><br><span class="line">-keep class com.xx.common.baserx.** &#123; *; &#125;</span><br><span class="line">-keep class com.xx.common.basebean.** &#123; *; &#125;</span><br><span class="line">-keep class com.xx.cctv.base.**  &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">## Caused by: java.lang.ClassCastException: java.lang.Object cannot be cast to kstar.mycommon.base.b</span><br><span class="line">mPresenter = TUtil.getT(this, 0);</span><br><span class="line"></span><br><span class="line">#---------------------------------4.反射相关的类和方法-----------------------</span><br><span class="line">## 对commonutils报下的代码不警告</span><br><span class="line">-dontwarn com.xx.commonutils.**</span><br><span class="line">-keep class com.xx.commonutils.** &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">#----------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">报错是强转两个对象之间的问题。根据这个思路 我将两个对象的代码都保护起来,BaseModel的子类要保护，不能混淆.</span><br><span class="line"></span><br><span class="line">## BaseModel类所在的位置</span><br><span class="line">-keep class com.xx.base.** &#123; *; &#125;</span><br><span class="line"></span><br><span class="line">## BaseModel子类，我们业务类所在的位置</span><br><span class="line">-keep class com.xx.ui.login.model.** &#123; *; &#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/23/混淆总结/" data-id="cjb0ungf90035q9dpe8mg1yva" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ProGuard/">ProGuard</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" class="article-date">
-  <time datetime="2017-04-17T10:48:11.000Z" itemprop="datePublished">2017-04-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/">Retrofit2 Okhttp3 返回ResponseBody出现java.lang.IllegalStateException: closed</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天在retrofit调试网络请求的时候一直在onError()里面出现异常抛出java.lang.IllegalStateException: closed<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">AppService appService = AppEngine.getInstance().getAppService();</span><br><span class="line">        subscriptionList.add(appService.oauthLogin(socialLoginRequestBean)</span><br><span class="line">                .map(<span class="keyword">new</span> Func1&lt;SocialLoginResponseBean, SocialLoginResponseBean&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> SocialLoginResponseBean <span class="title">call</span><span class="params">(SocialLoginResponseBean socialLoginResponseBean)</span> </span>&#123;</span><br><span class="line">                        <span class="comment">//status</span></span><br><span class="line">                        LogUtil.d(<span class="string">"call-------------"</span>);</span><br><span class="line">                        <span class="keyword">if</span> (!TextUtils.isEmpty(socialLoginResponseBean.errorMsg)) &#123;</span><br><span class="line">                            LogUtil.d(<span class="string">"socialLoginResponseBean.errorMsg :"</span>+socialLoginResponseBean.errorMsg);</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> ExplicitException(socialLoginResponseBean.getErrorMsg());</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> socialLoginResponseBean;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .onErrorResumeNext(<span class="keyword">new</span> Func1&lt;Throwable, Observable&lt;? extends SocialLoginResponseBean&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> Observable&lt;? extends SocialLoginResponseBean&gt; call(Throwable throwable) &#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"打印throwable :"</span>+throwable.getMessage());</span><br><span class="line">                        <span class="keyword">return</span> ExceptionUtil.getNetworkError(throwable);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .subscribeOn(Schedulers.io())</span><br><span class="line">                .unsubscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Subscriber&lt;SocialLoginResponseBean&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"登录请求打印onError()"</span>+e.getMessage());</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(SocialLoginResponseBean socialLoginResponseBean)</span> </span>&#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"登录请求打印token"</span>+socialLoginResponseBean.getData().getUserToken());</span><br><span class="line">                        handleResponse(socialLoginResponseBean);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;));</span><br></pre></td></tr></table></figure></p>
-<p>发现问题在下面的调试代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> builder.addNetworkInterceptor(<span class="keyword">new</span> AppInterceptor());</span><br><span class="line"> builder.addInterceptor(<span class="keyword">new</span> Interceptor() &#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        String responseStr = response.body().string();</span><br><span class="line">        LogUtil.e(<span class="string">"request:"</span> + request.body().toString()+ <span class="string">"respone:"</span> + responseStr);</span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p><strong>基于okhttp3的返回对象ResponseBody ,其中的string()方法只可调用一次,调用完毕会执行closed相关方法.再调用会报错</strong></p>
-<p>正确的打印log姿势为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</span><br><span class="line">    HttpLoggingInterceptor logging = <span class="keyword">new</span> HttpLoggingInterceptor();</span><br><span class="line">    logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);</span><br><span class="line">    logging.setLevel(HttpLoggingInterceptor.Level.BODY);</span><br><span class="line">    builder.addInterceptor(logging).build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>gradle 导包<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'</span><br></pre></td></tr></table></figure></p>
-<p>log tags :OkHttp</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" data-id="cjb0unge30016q9dputv03jbf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-冒泡排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/16/冒泡排序/" class="article-date">
-  <time datetime="2017-04-16T11:13:12.000Z" itemprop="datePublished">2017-04-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/16/冒泡排序/">冒泡排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>想到的关于冒泡的两种实现方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by lzb on 17/2/19.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSortTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] data = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">7</span>&#125;;</span><br><span class="line">        bubbleSort01(data);</span><br><span class="line">        bubbleSort02(data);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//小的元素向下移（气泡的下沉)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort01</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次循环"</span>);</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; data.length; j++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"i,j"</span> + <span class="string">"==="</span> + i + <span class="string">","</span> + j);</span><br><span class="line">                <span class="keyword">if</span> (data[i] &gt; data[j]) &#123;</span><br><span class="line">                    temp = data[i];</span><br><span class="line">                    data[i] = data[j];</span><br><span class="line">                    data[j] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Arrays.toString(data));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//大的元素向上移（气泡的上浮)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort02</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次循环"</span>);</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; data.length - i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"j,j+1"</span> + <span class="string">"==="</span> + j + <span class="string">","</span> + (j + <span class="number">1</span>));</span><br><span class="line">                <span class="keyword">if</span> (data[j] &gt; data[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    temp = data[j];</span><br><span class="line">                    data[j] = data[j + <span class="number">1</span>];</span><br><span class="line">                    data[j + <span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Arrays.toString(data));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/16/冒泡排序/" data-id="cjb0ungf0002rq9dp79wuylja" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-安卓开发规范updating" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/14/安卓开发规范updating/" class="article-date">
-  <time datetime="2017-03-13T16:39:17.000Z" itemprop="datePublished">2017-03-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/14/安卓开发规范updating/">安卓开发规范(updating)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
-<li><a href="#1-前言">1 前言</a></li>
-<li><a href="#2-as规范">2 AS规范</a></li>
-<li><a href="#3-命名规范">3 命名规范</a></li>
-<li><a href="#4-资源文件规范">4 资源文件规范</a></li>
-<li><a href="#5-版本统一规范">5 版本统一规范</a></li>
-<li><a href="#6-第三方库规范">6 第三方库规范</a></li>
-<li><a href="#7-注释规范">7 注释规范</a></li>
-<li><a href="#8-测试规范">8 测试规范</a></li>
-<li><a href="#9-RN规范">9 RN规范</a></li>
-<li><a href="#10-其他的一些规范">10 其他的一些规范</a></li>
-</ul>
-<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h3><p>为了利于项目维护以及规范开发，促进成员之间Code Review的效率，故提出以下开发规范，如有更好建议，欢迎补充</p>
-<h3 id="2-AS规范"><a href="#2-AS规范" class="headerlink" title="2 AS规范"></a>2 AS规范</h3><p>工欲善其事，必先利其器。</p>
-<ol>
-<li>尽量使用最新版的IDE进行开发；</li>
-<li>编码格式统一为<strong>UTF-8</strong>；</li>
-<li>编辑完<code>.java</code>, <code>.xml</code>等文件后一定要<strong>格式化</strong>（基本格式方面使用 AS 默认模板即可）；</li>
-<li>删除多余的import，减少警告出现，可利用AS的<code>Optimize Imports</code>(Settings → Keymap → Optimize Imports)快捷键；</li>
-</ol>
-<h3 id="3-命名规范"><a href="#3-命名规范" class="headerlink" title="3 命名规范"></a>3 命名规范</h3><p>代码中的命名严禁使用拼音与英文混合的方式,更不允许直接使用中文的方式。正确的英文拼写和语法可以让阅读者易于理解,避免歧义。</p>
-<blockquote>
-<p>注意：即使纯拼音命名方式也要避免采用。但<code>alibaba</code>、<code>taobao</code>、<code>youku</code>、<code>hangzhou</code>等国际通用的名称,可视同英文。</p>
-</blockquote>
-<h4 id="3-1-包名"><a href="#3-1-包名" class="headerlink" title="3.1 包名"></a>3.1 包名</h4><p>包名全部小写，连续的单词只是简单地连接起来，不使用下划线。</p>
-<p>采用反域名命名规则，全部使用小写字母。一级包名是顶级域名，通常为<code>com</code>,<code>edu</code>,<code>gov</code>,<code>net</code>,<code>org</code>等，二级包名为公司名，三级包名根据应用进行命名，四级包名为模块名或层级名。</p>
-<blockquote>
-<p>注意：项目采用MVP，所有M、V、P抽取出来的接口都放置在相应模块的i包下，所有的实现都放置在相应模块的impl下</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">com.xx.应用名称缩写</span><br><span class="line">├─ api</span><br><span class="line">├─ app</span><br><span class="line">├─ bean</span><br><span class="line">├─ db</span><br><span class="line">├─ utils</span><br><span class="line">├─ widget</span><br><span class="line">└─ ui</span><br><span class="line">   └─ 模块名</span><br><span class="line">        ├─ activity</span><br><span class="line">        ├─ adapter</span><br><span class="line">        ├─ contract</span><br><span class="line">        ├─ fragment</span><br><span class="line">        ├─ model</span><br><span class="line">        └─ presenter</span><br></pre></td></tr></table></figure>
-<p>common 包结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">com.xx.common</span><br><span class="line">├─ base</span><br><span class="line">├─ baseapp</span><br><span class="line">├─ bean</span><br><span class="line">├─ db</span><br><span class="line">├─ utils</span><br><span class="line">└─ widget</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">包名</th>
-<th style="text-align:left">此包中包含</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.api</td>
-<td style="text-align:left">网络请求包</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.app</td>
-<td style="text-align:left">整个应用全局相关</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.bean</td>
-<td style="text-align:left">下面可分：vo、po、dto 此包中包含：JavaBean类</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.db</td>
-<td style="text-align:left">数据库操作类</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui</td>
-<td style="text-align:left">视图相关</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名</td>
-<td style="text-align:left">模块包</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名.activity</td>
-<td style="text-align:left">用户界面中所有的Activity类</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名.adapter</td>
-<td style="text-align:left">页面用到的Adapter类 (适配器的类)</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名.contract</td>
-<td style="text-align:left">mvp中contract</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名.fragment</td>
-<td style="text-align:left">界面中所有的Fragment类</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名.model</td>
-<td style="text-align:left">此包中包含：模型类</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.ui.模块名.presenter</td>
-<td style="text-align:left">mvp中presenter</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.utils</td>
-<td style="text-align:left">此包中包含：公共工具方法类（util模块名）</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.应用名称缩写.widget</td>
-<td style="text-align:left">自定义的View类</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>注意：公共组件包抽取到外部关联module common中</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">包名</th>
-<th style="text-align:left">此包中包含</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">com.xx.common.base</td>
-<td style="text-align:left">基础包</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.common.baseapp</td>
-<td style="text-align:left">config和application 的配置</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.common.utils</td>
-<td style="text-align:left">工具类</td>
-</tr>
-<tr>
-<td style="text-align:left">com.xx.common.widget</td>
-<td style="text-align:left">自定义的View类</td>
-</tr>
-</tbody>
-</table>
-<h4 id="3-2-类名"><a href="#3-2-类名" class="headerlink" title="3.2 类名"></a>3.2 类名</h4><p>类名都以<code>UpperCamelCase</code>风格编写。</p>
-<p>类名通常是名词或名词短语，接口名称有时可能是形容词或形容词短语。现在还没有特定的规则或行之有效的约定来命名注解类型。</p>
-<p>名词，采用大驼峰命名法，尽量避免缩写，除非该缩写是众所周知的， 比如<code>HTML</code>, <code>URL</code>，如果类名称中包含单词缩写，则单词缩写的每个字母均应大写。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">例如</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Activity 类</td>
-<td style="text-align:left">Activity为后缀标识</td>
-<td style="text-align:left">欢迎页面类WelcomeActivity</td>
-</tr>
-<tr>
-<td style="text-align:left">Adapter类</td>
-<td style="text-align:left">Adapter 为后缀标识</td>
-<td style="text-align:left">新闻详情适配器 NewDetailAdapter</td>
-</tr>
-<tr>
-<td style="text-align:left">解析类</td>
-<td style="text-align:left">Parser为后缀标识</td>
-<td style="text-align:left">首页解析类HomePosterParser</td>
-</tr>
-<tr>
-<td style="text-align:left">工具方法类</td>
-<td style="text-align:left">Utils或Manager为后缀标识（与系统或第三方的Utils区分）或功能+Utils</td>
-<td style="text-align:left">线程池管理类：ThreadPoolManager日志工具类：LogUtils（Logger也可）打印工具类：PrinterUtils</td>
-</tr>
-<tr>
-<td style="text-align:left">数据库类</td>
-<td style="text-align:left">以DBHelper后缀标识</td>
-<td style="text-align:left">新闻数据库：NewDBHelper</td>
-</tr>
-<tr>
-<td style="text-align:left">Service类</td>
-<td style="text-align:left">以Service为后缀标识</td>
-<td style="text-align:left">时间服务TimeService</td>
-</tr>
-<tr>
-<td style="text-align:left">BroadcastReceiver类</td>
-<td style="text-align:left">以Receiver为后缀标识</td>
-<td style="text-align:left">推送接收JPushReceiver</td>
-</tr>
-<tr>
-<td style="text-align:left">ContentProvider类</td>
-<td style="text-align:left">以Provider为后缀标识</td>
-<td style="text-align:left">ShareProvider</td>
-</tr>
-<tr>
-<td style="text-align:left">自定义的共享基础类</td>
-<td style="text-align:left">以Base开头</td>
-<td style="text-align:left">BaseActivity,BaseFragment</td>
-</tr>
-</tbody>
-</table>
-<p>测试类的命名以它要测试的类的名称开始，以Test结束。例如：<code>HashTest</code>或<code>HashIntegrationTest</code>。</p>
-<p>接口（interface）：命名规则与类一样采用大驼峰命名法，多以able或ible结尾，如<br><code>interface Runnable</code>、<code>interface Accessible</code>。</p>
-<blockquote>
-<p>注意：如果项目采用MVP，所有Model、View、Presenter的接口都以I为前缀，不加后缀，其他的接口采用上述命名规则。</p>
-</blockquote>
-<h4 id="3-3-方法名"><a href="#3-3-方法名" class="headerlink" title="3.3 方法名"></a>3.3 方法名</h4><p>方法名都以<code>lowerCamelCase</code>风格编写。</p>
-<p>方法名通常是动词或动词短语。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">initXX()</td>
-<td>初始化相关方法,使用init为前缀标识，如初始化布局initView()</td>
-</tr>
-<tr>
-<td style="text-align:left">isXX() checkXX()</td>
-<td>方法返回值为boolean型的请使用is或check为前缀标识</td>
-</tr>
-<tr>
-<td style="text-align:left">getXX()</td>
-<td>返回某个值的方法，使用get为前缀标识</td>
-</tr>
-<tr>
-<td style="text-align:left">setXX()</td>
-<td>设置某个属性值</td>
-</tr>
-<tr>
-<td style="text-align:left">handleXX()/processXX()</td>
-<td>对数据进行处理的方法</td>
-</tr>
-<tr>
-<td style="text-align:left">displayXX()/showXX()</td>
-<td>弹出提示框和提示信息，使用display/show为前缀标识</td>
-</tr>
-<tr>
-<td style="text-align:left">updateXX()</td>
-<td>更新数据</td>
-</tr>
-<tr>
-<td style="text-align:left">saveXX()</td>
-<td>保存数据</td>
-</tr>
-<tr>
-<td style="text-align:left">resetXX()</td>
-<td>重置数据</td>
-</tr>
-<tr>
-<td style="text-align:left">clearXX()</td>
-<td>清除数据</td>
-</tr>
-<tr>
-<td style="text-align:left">removeXX()</td>
-<td>移除数据或者视图等，如removeView();</td>
-</tr>
-<tr>
-<td style="text-align:left">drawXX()</td>
-<td>绘制数据或效果相关的，使用draw前缀标识</td>
-</tr>
-</tbody>
-</table>
-<h4 id="3-4-常量名"><a href="#3-4-常量名" class="headerlink" title="3.4 常量名"></a>3.4 常量名</h4><p>常量名命名模式为<code>CONSTANT_CASE</code>，全部字母大写，用下划线分隔单词。那，到底什么算是一个常量？</p>
-<p>每个常量都是一个静态<code>final</code>字段，但不是所有静态<code>final</code>字段都是常量。在决定一个字段是否是一个常量时，考虑它是否真的感觉像是一个常量。例如，如果任何一个该实例的观测状态是可变的，则它几乎肯定不会是一个常量。只是永远不打算改变对象一般是不够的，它要真的一直不变才能将它示为常量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Constants</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NUMBER = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ImmutableListNAMES = ImmutableList.of(<span class="string">"Ed"</span>, <span class="string">"Ann"</span>);</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> Joiner COMMA_JOINER = Joiner.on(<span class="string">','</span>); <span class="comment">// because Joiner is immutable</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> SomeMutableType[] EMPTY_ARRAY = &#123;&#125;;</span><br><span class="line"><span class="keyword">enum</span> SomeEnum &#123; ENUM_CONSTANT &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Not constants</span></span><br><span class="line"><span class="keyword">static</span> String nonFinal = <span class="string">"non-final"</span>;</span><br><span class="line"><span class="keyword">final</span> String nonStatic = <span class="string">"non-static"</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> SetmutableCollection = <span class="keyword">new</span> HashSet();</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ImmutableSetmutableElements = ImmutableSet.of(mutable);</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(MyClass.getName());</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String[] nonEmptyArray = &#123;<span class="string">"these"</span>, <span class="string">"can"</span>, <span class="string">"change"</span>&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="3-5-非常量字段名"><a href="#3-5-非常量字段名" class="headerlink" title="3.5 非常量字段名"></a>3.5 非常量字段名</h4><p>非常量字段名以<code>lowerCamelCase</code>风格的基础上改造为如下风格：基本结构为<code>scopeVariableNameType</code>。</p>
-<p><strong>scope：范围</strong></p>
-<p>非公有，非静态字段命名以m开头。</p>
-<p>静态字段命名以s开头。</p>
-<p>公有非静态字段命名以p开头。</p>
-<p>公有静态字段（全局变量）命名以g开头。</p>
-<p>例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> mPackagePrivate;  </span><br><span class="line">      <span class="keyword">private</span> <span class="keyword">int</span> mPrivate;  </span><br><span class="line">      <span class="keyword">protected</span> <span class="keyword">int</span> mProtected;</span><br><span class="line">      <span class="keyword">private</span> <span class="keyword">static</span> MyClass sSingleton;  </span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">int</span> pField;</span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> gField;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用1字符前缀来表示作用范围，1个字符的前缀必须小写，前缀后面是由表意性强的一个单词或多个单词组成的名字，而且每个单词的首写字母大写，其它字母小写，这样保证了对变量名能够进行正确的断句。</p>
-<p><strong>Type：类型</strong></p>
-<p>考虑到Android中使用很多UI控件，为避免控件和普通成员变量混淆以及更好达意，所有用来表示控件的成员变量统一加上控件缩写作为后缀（文末附有缩写表）。</p>
-<p>对于普通变量一般不添加类型后缀，如果统一添加类型后缀，请参考文末的缩写表。</p>
-<p>用统一的量词通过在结尾处放置一个量词，就可创建更加统一的变量，它们更容易理解，也更容易搜索。</p>
-<blockquote>
-<p>注意：如果项目中使用<code>ButterKnife</code>，则不添加m前缀，以<code>lowerCamelCase</code>风格命名。</p>
-</blockquote>
-<p>例如，请使用<code>mCustomerStrFirst</code>和<code>mCustomerStrLast</code>，而不要使用<code>mFirstCustomerStr</code>和<code>mLastCustomerStr</code>。</p>
-<table>
-<thead>
-<tr>
-<th>量词列表</th>
-<th>量词后缀说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>First</td>
-<td>一组变量中的第一个</td>
-</tr>
-<tr>
-<td>Last</td>
-<td>一组变量中的最后一个</td>
-</tr>
-<tr>
-<td>Next</td>
-<td>一组变量中的下一个变量</td>
-</tr>
-<tr>
-<td>Prev</td>
-<td>一组变量中的上一个</td>
-</tr>
-<tr>
-<td>Cur</td>
-<td>一组变量中的当前变量</td>
-</tr>
-</tbody>
-</table>
-<p>说明：</p>
-<p>集合添加如下后缀：List、Map、Set<br>数组添加如下后缀：Arr</p>
-<blockquote>
-<p>注意：所有的VO（值对象）统一采用标准的lowerCamelCase风格编写，所有的DTO（数据传输对象）就按照接口文档中定义的字段名编写。</p>
-</blockquote>
-<h4 id="3-6-参数名"><a href="#3-6-参数名" class="headerlink" title="3.6 参数名"></a>3.6 参数名</h4><p>参数名以<code>lowerCamelCase</code>风格编写。<br>参数应该避免用单个字符命名。</p>
-<h4 id="3-7-局部变量名"><a href="#3-7-局部变量名" class="headerlink" title="3.7 局部变量名"></a>3.7 局部变量名</h4><p>局部变量名以<code>lowerCamelCase</code>风格编写，比起其它类型的名称，局部变量名可以有更为宽松的缩写。</p>
-<p>虽然缩写更宽松，但还是要避免用单字符进行命名，除了临时变量和循环变量。</p>
-<p>即使局部变量是final和不可改变的，也不应该把它示为常量，自然也不能用常量的规则去命名它。</p>
-<h4 id="3-8-临时变量"><a href="#3-8-临时变量" class="headerlink" title="3.8 临时变量"></a>3.8 临时变量</h4><p>临时变量通常被取名为<code>i</code>、<code>j</code>、<code>k</code>、<code>m</code>和<code>n</code>，它们一般用于整型；<code>c</code>、<code>d</code>、<code>e</code>，它们一般用于字符型。 如：<code>for (int i = 0; i &lt; len ; i++)</code>。</p>
-<h4 id="3-9-类型变量名"><a href="#3-9-类型变量名" class="headerlink" title="3.9 类型变量名"></a>3.9 类型变量名</h4><p>类型变量可用以下两种风格之一进行命名：</p>
-<ol>
-<li>单个的大写字母，后面可以跟一个数字(如：<code>E</code>, <code>T</code>, <code>X</code>, <code>T2</code>)。</li>
-<li>以类命名方式(参考<a href="#32-类名">3.2 类名</a>)，后面加个大写的<code>T</code>(如：<code>RequestT</code>, <code>FooBarT</code>)。</li>
-</ol>
-<p>更多还可参考～<strong><a href="https://102.alibaba.com/newsInfo.htm?newsId=6" target="_blank" rel="noopener">阿里巴巴Java开发手册</a></strong></p>
-<h3 id="4-资源文件规范"><a href="#4-资源文件规范" class="headerlink" title="4 资源文件规范"></a>4 资源文件规范</h3><h4 id="4-1-资源布局文件（XML文件（layout布局文件））"><a href="#4-1-资源布局文件（XML文件（layout布局文件））" class="headerlink" title="4.1 资源布局文件（XML文件（layout布局文件））"></a>4.1 资源布局文件（XML文件（layout布局文件））</h4><p>全部小写，采用下划线命名法</p>
-<h5 id="4-1-1-contentView命名"><a href="#4-1-1-contentView命名" class="headerlink" title="4.1.1 contentView命名"></a>4.1.1 contentView命名</h5><p>必须以全部单词小写，单词间以下划线分割，使用名词或名词词组。</p>
-<p>所有Activity或Fragment的contentView必须与其类名对应，对应规则为：将所有字母都转为小写，将类型和功能调换（也就是后缀变前缀）。</p>
-<p>例如：<code>activity_main.xml</code></p>
-<h5 id="4-1-2-Dialog命名"><a href="#4-1-2-Dialog命名" class="headerlink" title="4.1.2 Dialog命名"></a>4.1.2 Dialog命名</h5><p>规则：<code>dialog_描述.xml</code></p>
-<p>例如：<code>dialog_hint.xml</code></p>
-<h5 id="4-1-3-PopupWindow命名"><a href="#4-1-3-PopupWindow命名" class="headerlink" title="4.1.3 PopupWindow命名"></a>4.1.3 PopupWindow命名</h5><p>规则：<code>ppw_描述.xml</code></p>
-<p>例如：<code>ppw_info.xml</code></p>
-<h5 id="4-1-4-列表项命名"><a href="#4-1-4-列表项命名" class="headerlink" title="4.1.4 列表项命名"></a>4.1.4 列表项命名</h5><p>规则：<code>item_描述.xml</code></p>
-<p>例如：<code>item_city.xml</code></p>
-<h5 id="4-1-5-包含项命名"><a href="#4-1-5-包含项命名" class="headerlink" title="4.1.5 包含项命名"></a>4.1.5 包含项命名</h5><p>规则：<code>模块_(位置)描述.xml</code></p>
-<p>例如：<code>activity_main_head.xml</code>、<code>activity_main_bottom.xml</code></p>
-<p>注意：通用的包含项命名采用：<code>项目名称缩写_描述.xml</code></p>
-<p>例如：<code>xxxx_title.xml</code></p>
-<h4 id="4-2-资源文件（图片drawable文件夹下）"><a href="#4-2-资源文件（图片drawable文件夹下）" class="headerlink" title="4.2 资源文件（图片drawable文件夹下）"></a>4.2 资源文件（图片drawable文件夹下）</h4><p>全部小写，采用下划线命名法，加前缀区分</p>
-<p>命名模式：可加后缀 <code>_small</code> 表示小图， <code>_big</code> 表示大图，逻辑名称可由多个单词加下划线组成，采用以下规则：</p>
-<ul>
-<li><code>用途_模块名_逻辑名称</code></li>
-<li><code>用途_模块名_颜色</code></li>
-<li><code>用途_逻辑名称</code></li>
-<li><code>用途_颜色</code></li>
-</ul>
-<p>说明：用途也指控件类型（具体见附录<a href="#ui控件缩写表">UI控件缩写表</a>）</p>
-<p>例如：</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>btn_main_home.png</td>
-<td>按键</td>
-</tr>
-<tr>
-<td>divider_maket_white.png</td>
-<td>分割线</td>
-</tr>
-<tr>
-<td>ic_edit.png</td>
-<td>图标</td>
-</tr>
-<tr>
-<td>bg_main.png</td>
-<td>背景</td>
-</tr>
-<tr>
-<td>btn_red.png</td>
-<td>红色按键</td>
-</tr>
-<tr>
-<td>btn_red_big.png</td>
-<td>红色大按键</td>
-</tr>
-<tr>
-<td>ic_head_small.png</td>
-<td>小头像</td>
-</tr>
-<tr>
-<td>bg_input.png</td>
-<td>输入框背景</td>
-</tr>
-<tr>
-<td>divider_white.png</td>
-<td>白色分割线</td>
-</tr>
-</tbody>
-</table>
-<p>如果有多种形态，如按钮选择器：<code>btn_xx.xml</code>(selector)</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>btn_xx</td>
-<td>按钮图片使用<code>btn_整体效果</code>（selector）</td>
-</tr>
-<tr>
-<td>btn_xx_normal</td>
-<td>按钮图片使用<code>btn_正常情况效果</code></td>
-</tr>
-<tr>
-<td>btn_xx_pressed</td>
-<td>按钮图片使用<code>btn_点击时候效果</code></td>
-</tr>
-<tr>
-<td>btn_xx_focused</td>
-<td><code>state_focused</code>聚焦效果</td>
-</tr>
-<tr>
-<td>btn_xx_disabled</td>
-<td><code>state_enabled</code> (false)不可用效果</td>
-</tr>
-<tr>
-<td>btn_xx_checked</td>
-<td><code>state_checked</code>选中效果</td>
-</tr>
-<tr>
-<td>btn_xx_selected</td>
-<td><code>state_selected</code>选中效果</td>
-</tr>
-<tr>
-<td>btn_xx_hovered</td>
-<td><code>state_hovered</code>悬停效果</td>
-</tr>
-<tr>
-<td>btn_xx_checkable</td>
-<td><code>state_checkable</code>可选效果</td>
-</tr>
-<tr>
-<td>btn_xx_activated</td>
-<td><code>state_activated</code>激活的</td>
-</tr>
-<tr>
-<td>btn_xx_windowfocused</td>
-<td><code>state_window_focused</code></td>
-</tr>
-<tr>
-<td>bg_head</td>
-<td>背景图片使用<code>bg_功能_说明</code></td>
-</tr>
-<tr>
-<td>def_search_cell</td>
-<td>默认图片使用<code>def_功能_说明</code></td>
-</tr>
-<tr>
-<td>ic_more_help</td>
-<td>图标图片使用<code>ic_功能_说明</code></td>
-</tr>
-<tr>
-<td>seg_list_line</td>
-<td>具有分隔特征的图片使用<code>seg_功能_说明</code></td>
-</tr>
-<tr>
-<td>sel_ok</td>
-<td>选择图标使用<code>sel_功能_说明</code></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>注意：使用AndroidStudio的插件<code>SelectorChapek</code>可以快速生成selector，前提是命名要规范。</p>
-</blockquote>
-<h4 id="4-3-动画文件（anim文件夹下）"><a href="#4-3-动画文件（anim文件夹下）" class="headerlink" title="4.3 动画文件（anim文件夹下）"></a>4.3 动画文件（anim文件夹下）</h4><p>全部小写，采用下划线命名法，加前缀区分。</p>
-<p>具体动画采用以下规则：<code>模块名_逻辑名称</code>。</p>
-<p>例如：<code>refresh_progress.xml</code>、<code>market_cart_add.xml</code>、<code>market_cart_remove.xml</code>。</p>
-<p>普通的tween动画采用如下表格中的命名方式：<code>动画类型_方向</code></p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fade_in</td>
-<td>淡入</td>
-</tr>
-<tr>
-<td>fade_out</td>
-<td>淡出</td>
-</tr>
-<tr>
-<td>push_down_in</td>
-<td>从下方推入</td>
-</tr>
-<tr>
-<td>push_down_out</td>
-<td>从下方推出</td>
-</tr>
-<tr>
-<td>push_left</td>
-<td>推向左方</td>
-</tr>
-<tr>
-<td>slide_in_from_top</td>
-<td>从头部滑动进入</td>
-</tr>
-<tr>
-<td>zoom_enter</td>
-<td>变形进入</td>
-</tr>
-<tr>
-<td>slide_in</td>
-<td>滑动进入</td>
-</tr>
-<tr>
-<td>shrink_to_middle</td>
-<td>中间缩小</td>
-</tr>
-</tbody>
-</table>
-<h4 id="4-4-values中name命名"><a href="#4-4-values中name命名" class="headerlink" title="4.4 values中name命名"></a>4.4 values中name命名</h4><h5 id="4-4-1-colors-xml"><a href="#4-4-1-colors-xml" class="headerlink" title="4.4.1 colors.xml"></a>4.4.1 colors.xml</h5><p><code>colors</code>的<code>name</code>命名使用下划线命名法，在你的<code>colors.xml</code>文件中应该只是映射颜色的名称一个ARGB值，而没有其它的。不要使用它为不同的按钮来定义ARGB值。</p>
-<p><strong>不要这样做</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"button_foreground"</span>&gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"button_background"</span>&gt;</span>#2A91BD<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_background_inactive"</span>&gt;</span>#5F5F5F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_background_active"</span>&gt;</span>#939393<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_foreground"</span>&gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_foreground_important"</span>&gt;</span>#FF9D2F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_shadow"</span>&gt;</span>#323232<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用这种格式，你会非常容易的开始重复定义ARGB值，这使如果需要改变基本色变的很复杂。同时，这些定义是跟一些环境关联起来的，如<code>button</code>或者<code>comment</code>, 应该放到一个按钮风格中，而不是在<code>color.xml</code>文件中。</p>
-<p><strong>相反，这样做</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- grayscale --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"white"</span>     &gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray_light"</span>&gt;</span>#DBDBDB<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray"</span>      &gt;</span>#939393<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray_dark"</span> &gt;</span>#5F5F5F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"black"</span>     &gt;</span>#323232<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- basic colors --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"green"</span>&gt;</span>#27D34D<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"blue"</span>&gt;</span>#2A91BD<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"orange"</span>&gt;</span>#FF9D2F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"red"</span>&gt;</span>#FF432F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>向应用设计者那里要这个调色板，名称不需要跟<code>&quot;green&quot;</code>、<code>&quot;blue&quot;</code>等等相同。<code>&quot;brand_primary&quot;</code>、<code>&quot;brand_secondary&quot;</code>、<code>&quot;brand_negative&quot;</code>这样的名字也是完全可以接受的。 像这样规范的颜色很容易修改或重构，会使应用一共使用了多少种不同的颜色变得非常清晰。 通常一个具有审美价值的UI来说，减少使用颜色的种类是非常重要的。</p>
-<h5 id="4-4-2-dimens-xml"><a href="#4-4-2-dimens-xml" class="headerlink" title="4.4.2 dimens.xml"></a>4.4.2 dimens.xml</h5><p>像对待<code>colors.xml</code>一样对待<code>dimens.xml</code>文件 与定义颜色调色板一样，你同时也应该定义一个空隙间隔和字体大小的“调色板”。 一个好的例子，如下所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- font sizes --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"font_larger"</span>&gt;</span>22sp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"font_large"</span>&gt;</span>18sp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"font_normal"</span>&gt;</span>15sp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"font_small"</span>&gt;</span>12sp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- typical spacing between two views --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"spacing_huge"</span>&gt;</span>40dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"spacing_large"</span>&gt;</span>24dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"spacing_normal"</span>&gt;</span>14dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"spacing_small"</span>&gt;</span>10dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"spacing_tiny"</span>&gt;</span>4dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- typical sizes of views --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"button_height_tall"</span>&gt;</span>60dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"button_height_normal"</span>&gt;</span>40dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">"button_height_short"</span>&gt;</span>32dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>布局时在写<code>margins</code>和<code>paddings</code>时，你应该使用<code>spacing_xxxx</code>尺寸格式来布局，而不是像对待<code>string</code>字符串一样直接写值。 这样写会非常有感觉，会使组织和改变风格或布局是非常容易。</p>
-<h5 id="4-4-3-strings-xml"><a href="#4-4-3-strings-xml" class="headerlink" title="4.4.3 strings.xml"></a>4.4.3 strings.xml</h5><p><code>strings</code>的<code>name</code>命名使用下划线命名法，采用以下规则：<code>模块名+逻辑名称</code></p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>main_menu_about</td>
-<td>主菜单按键文字</td>
-</tr>
-<tr>
-<td>friend_title</td>
-<td>好友模块标题栏</td>
-</tr>
-<tr>
-<td>friend_dialog_del</td>
-<td>好友删除提示</td>
-</tr>
-<tr>
-<td>login_check_email</td>
-<td>登录验证</td>
-</tr>
-<tr>
-<td>dialog_title</td>
-<td>弹出框标题</td>
-</tr>
-<tr>
-<td>button_ok</td>
-<td>确认键</td>
-</tr>
-<tr>
-<td>loading</td>
-<td>加载文字</td>
-</tr>
-</tbody>
-</table>
-<h5 id="4-4-4-styles-xml"><a href="#4-4-4-styles-xml" class="headerlink" title="4.4.4 styles.xml"></a>4.4.4 styles.xml</h5><p>几乎每个项目都需要适当的使用<code>style</code>文件，因为对于一个视图来说有一个重复的外观是很常见的，将所有的外观细节属性（<code>colors</code>、<code>padding</code>、<code>font</code>）放在<code>style</code>文件中。 在应用中对于大多数文本内容，最起码你应该有一个通用的<code>style</code>文件，例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name=&quot;ContentText&quot;&gt;</span><br><span class="line">    &lt;item name=&quot;android:textSize&quot;&gt;@dimen/font_normal&lt;/item&gt;</span><br><span class="line">    &lt;item name=&quot;android:textColor&quot;&gt;@color/basic_black&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-<p>应用到<code>TextView</code>中:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;TextView</span><br><span class="line">    android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:text=&quot;@string/price&quot;</span><br><span class="line">    style=&quot;@style/ContentText&quot;</span><br><span class="line">    /&gt;</span><br></pre></td></tr></table></figure>
-<p>你或许需要为按钮控件做同样的事情，不要停止在那里。将一组相关的和重复<code>android:****</code>的属性放到一个通用的<code>style</code>中。</p>
-<p><strong>将一个大的<code>style</code>文件分割成多个文件</strong>， 你可以有多个<code>styles.xml</code> 文件。Android SDK支持其它文件，<code>styles</code>这个文件名称并没有作用，起作用的是在文件 里xml的<code>&lt;style&gt;</code>标签。因此你可以有多个style文件<code>styles.xml</code>、<code>style_home.xml</code>、<code>style_item_details.xml</code>、<code>styles_forms.xml</code>。 不同于资源文件路径需要为系统构建起的有意义，在<code>res/values</code>目录下的文件可以任意命名。</p>
-<h4 id="4-5-layout中的id命名"><a href="#4-5-layout中的id命名" class="headerlink" title="4.5 layout中的id命名"></a>4.5 layout中的id命名</h4><p>命名模式为：<code>view缩写_模块名_逻辑名</code>，比如<code>btn_main_search</code><br>使用<code>AndroidStudio</code>的插件<code>ButterKnife Zelezny</code>，生成注解非常方便，原生的话可以使用<code>Android Code Generator</code>插件。</p>
-<h3 id="5-版本统一规范"><a href="#5-版本统一规范" class="headerlink" title="5 版本统一规范"></a>5 版本统一规范</h3><p>Android开发存在着众多版本的不同，比如<code>compileSdkVersion</code>、<code>minSdkVersion</code>、<code>targetSdkVersion</code>以及项目中依赖第三方库的版本，不同的module及不同的开发人员都有不同的版本，所以需要一个统一版本规范的文件。</p>
-<p>具体参见项目引用gradle文件</p>
-<h3 id="6-第三方库规范"><a href="#6-第三方库规范" class="headerlink" title="6 第三方库规范"></a>6 第三方库规范</h3><p>希望Team能用时下较新的技术，对开源库的选取，一般都需要选择比较稳定的版本，作者在维护的项目，要考虑作者对issue的解决，以及开发者的知名度等各方面。选取之后，一定的封装是必要的。</p>
-<p>个人推荐Team可使用如下优秀轮子：</p>
-<ul>
-<li><strong><a href="https://github.com/square/retrofit" target="_blank" rel="noopener">Retrofit</a></strong></li>
-<li><strong><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="noopener">RxAndroid</a></strong></li>
-<li><strong><a href="https://github.com/square/okhttp" target="_blank" rel="noopener">OkHttp</a></strong></li>
-<li><strong><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a></strong> / <strong><a href="https://github.com/facebook/fresco" target="_blank" rel="noopener">Fresco</a></strong></li>
-<li><strong><a href="https://github.com/google/gson" target="_blank" rel="noopener">Gson</a></strong> / <strong><a href="https://github.com/alibaba/fastjson" target="_blank" rel="noopener">Fastjson</a></strong></li>
-<li><strong><a href="https://github.com/greenrobot/EventBus" target="_blank" rel="noopener">EventBus</a></strong> / <strong><a href="https://github.com/bboyfeiyu/AndroidEventBus" target="_blank" rel="noopener">AndroidEventBus</a></strong></li>
-<li><strong><a href="https://github.com/greenrobot/greenDAO" target="_blank" rel="noopener">GreenDao</a></strong></li>
-<li><strong><a href="https://github.com/google/dagger" target="_blank" rel="noopener">Dagger2</a></strong>(选用)</li>
-<li><strong><a href="https://github.com/Tencent/tinker" target="_blank" rel="noopener">Tinker</a></strong>(选用)</li>
-</ul>
-<h3 id="7-注释规范"><a href="#7-注释规范" class="headerlink" title="7 注释规范"></a>7 注释规范</h3><p>为了减少他人阅读你代码的痛苦值，请在关键地方做好注释。</p>
-<h4 id="7-1-类注释"><a href="#7-1-类注释" class="headerlink" title="7.1 类注释"></a>7.1 类注释</h4><p>每个类完成后应该有作者姓名和联系方式的注释，对自己的代码负责。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;pre&gt;</span></span><br><span class="line"><span class="comment"> *     author : lzb</span></span><br><span class="line"><span class="comment"> *     e-mail : xxx@xx</span></span><br><span class="line"><span class="comment"> *     time   : 2017/03/07</span></span><br><span class="line"><span class="comment"> *     desc   : xxxx描述</span></span><br><span class="line"><span class="comment"> *     version: 1.0</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WelcomeActivity</span> </span>&#123;</span><br><span class="line">       ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>具体可以在AS中自己配制，Settings → Editor → File and Code Templates → Includes → File Header，输入</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;pre&gt;</span></span><br><span class="line"><span class="comment"> *     author : $&#123;USER&#125;</span></span><br><span class="line"><span class="comment"> *     e-mail : xxx@xx</span></span><br><span class="line"><span class="comment"> *     time   : $&#123;YEAR&#125;/$&#123;MONTH&#125;/$&#123;DAY&#125;</span></span><br><span class="line"><span class="comment"> *     desc   : </span></span><br><span class="line"><span class="comment"> *     version: 1.0</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<p>这样便可在每次新建类的时候自动加上该头注释。</p>
-<h4 id="7-2-方法注释"><a href="#7-2-方法注释" class="headerlink" title="7.2 方法注释"></a>7.2 方法注释</h4><p>每一个成员方法（包括自定义成员方法、覆盖方法、属性方法）的方法头都必须做方法头注释，在方法前一行输入<code>/** + 回车</code>或者设置<code>Fix doc comment</code>(Settings → Keymap → Fix doc comment)快捷键，AS便会帮你生成模板，我们只需要补全参数即可，如下所示。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * bitmap转byteArr</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> bitmap bitmap对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> format 格式</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 字节数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) &#123;</span><br><span class="line">    <span class="keyword">if</span> (bitmap == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    bitmap.compress(format, <span class="number">100</span>, baos);</span><br><span class="line">    <span class="keyword">return</span> baos.toByteArray();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="7-3-块注释"><a href="#7-3-块注释" class="headerlink" title="7.3 块注释"></a>7.3 块注释</h4><p>块注释与其周围的代码在同一缩进级别。它们可以是<code>/* ... */</code>风格，也可以是<code>// ...</code>风格(<strong><code>//</code>后最好带一个空格</strong>）。对于多行的<code>/* ... */</code>注释，后续行必须从<code>*</code>开始， 并且与前一行的<code>*</code>对齐。以下示例注释都是OK的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * This is          // And so           /* Or you can</span></span><br><span class="line"><span class="comment"> * okay.            // is this.          * even do this. */</span></span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
-<p>注释不要封闭在由星号或其它字符绘制的框架里。</p>
-<blockquote>
-<p>Tip：在写多行注释时，如果你希望在必要时能重新换行(即注释像段落风格一样)，那么使用<code>/* ... */</code>。</p>
-</blockquote>
-<h3 id="8-测试规范"><a href="#8-测试规范" class="headerlink" title="8 测试规范"></a>8 测试规范</h3><p>业务开发完成之后，开发人员做单元测试，单元测试完成之后，保证单元测试全部通过同时单元测试代码覆盖率达到一定程度（这个需要开发和测试约定，理论上越高越好），开发提测。</p>
-<p>// TODO…<br>暂定mvp 中对p层进行编写测试代码</p>
-<h3 id="9-RN规范"><a href="#9-RN规范" class="headerlink" title="9 RN规范"></a>9 RN规范</h3><p>// TODO…</p>
-<h3 id="10-其他的一些规范"><a href="#10-其他的一些规范" class="headerlink" title="10 其他的一些规范"></a>10 其他的一些规范</h3><ol>
-<li>合理布局，有效运用<code>&lt;merge&gt;</code>、<code>&lt;ViewStub&gt;</code>、<code>&lt;include&gt;</code>标签；</li>
-<li><code>Activity</code>和<code>Fragment</code>里面有许多重复的操作以及操作步骤，所以我们都需要提供一个<code>BaseActivity</code>和<code>BaseFragment</code>，让所有的<code>Activity</code>和<code>Fragment</code>都继承这个基类。</li>
-<li>方法基本上都按照调用的先后顺序在各自区块中排列；</li>
-<li>相关功能作为小区块放在一起（或者封装掉）；</li>
-<li>当一个类有多个构造函数，或是多个同名方法，这些函数/方法应该按顺序出现在一起，中间不要放进其它函数/方法；</li>
-<li>数据提供统一的入口。无论是在 MVP、MVC 还是 MVVM 中，提供一个统一的数据入口，都可以让代码变得更加易于维护。比如可使用一个<code>DataManager</code>，把 <code>http</code>、<code>preference</code>、<code>eventpost</code>、<code>database</code> 都放在<code>DataManger</code>里面进行操作，我们只需要与<code>DataManger</code>打交道；</li>
-<li>多用组合, 少用继承；</li>
-<li>提取方法, 去除重复代码。对于必要的工具类抽取也很重要，这在以后的项目中是可以重用的。</li>
-<li>可引入 Dagger2 减少模块之间的耦合性。Dagger2 是一个依赖注入框架，使用代码自动生成创建依赖关系需要的代码。减少很多模板化的代码，更易于测试，降低耦合，创建可复用可互换的模块；</li>
-<li>项目引入<code>RxJava</code> + <code>RxAndroid</code>这些响应式编程，可以极大的减少逻辑代码；</li>
-<li>通过引入事件总线，如：<code>EventBus</code>、<code>AndroidEventBus</code>、<code>RxBus</code>，它允许我们在<code>DataLayer</code>中发送事件，以便<code>ViewLayer</code>中的多个组件都能够订阅到这些事件，减少回调；</li>
-<li>尽可能使用局部变量；</li>
-<li>及时关闭流；</li>
-<li><p>尽量减少对变量的重复计算；</p>
-<p>如下面的操作：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>建议替换为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, <span class="keyword">int</span> length = list.size(); i &lt; length; i++) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>尽量采用懒加载的策略，即在需要的时候才创建；</p>
-<p>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">"aaa"</span>;</span><br><span class="line"><span class="keyword">if</span> (i == <span class="number">1</span>) &#123;</span><br><span class="line">    list.add(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>建议替换为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i == <span class="number">1</span>) &#123;</span><br><span class="line">    String str = <span class="string">"aaa"</span>;</span><br><span class="line">    list.add(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>不要在循环中使用try…catch…，应该把其放在最外层；</p>
-</li>
-<li>使用带缓冲的输入输出流进行IO操作；</li>
-<li>尽量使用HashMap、ArrayList、StringBuilder，除非线程安全需要，否则不推荐使用Hashtable、Vector、StringBuffer，后三者由于使用同步机制而导致了性能开销；</li>
-<li><p>尽量在合适的场合使用单例；</p>
-<p>使用单例可以减轻加载的负担、缩短加载的时间、提高加载的效率，但并不是所有地方都适用于单例，简单来说，单例主要适用于以下三个方面：</p>
-<p>（1）控制资源的使用，通过线程同步来控制资源的并发访问</p>
-<p>（2）控制实例的产生，以达到节约资源的目的</p>
-<p>（3）控制数据的共享，在不建立直接关联的条件下，让多个不相关的进程或线程之间实现通信</p>
-</li>
-<li><p>把一个基本数据类型转为字符串，<code>基本数据类型.toString()</code>是最快的方式、<code>String.valueOf(数据)</code>次之、<code>数据 + &quot;&quot;</code>最慢；</p>
-</li>
-<li>使用AS自带的Lint来优化代码结构（什么，你不会？右键module、目录或者文件，选择Analyze → Inspect Code）；</li>
-<li>最后不要忘了内存泄漏的检测；</li>
-</ol>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="UI控件缩写表"><a href="#UI控件缩写表" class="headerlink" title="UI控件缩写表"></a>UI控件缩写表</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>缩写</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>TextView</td>
-<td>txt</td>
-</tr>
-<tr>
-<td>EditText</td>
-<td>edit</td>
-</tr>
-<tr>
-<td>Button</td>
-<td>btn</td>
-</tr>
-<tr>
-<td>ImageButton</td>
-<td>ibtn</td>
-</tr>
-<tr>
-<td>ImageView</td>
-<td>img</td>
-</tr>
-<tr>
-<td>ListView</td>
-<td>lv</td>
-</tr>
-<tr>
-<td>RadioGroup</td>
-<td>rgroup</td>
-</tr>
-<tr>
-<td>RadioButton</td>
-<td>rbtn</td>
-</tr>
-<tr>
-<td>ProgressBar</td>
-<td>rbar</td>
-</tr>
-<tr>
-<td>SeekBar</td>
-<td>seek</td>
-</tr>
-<tr>
-<td>CheckBox</td>
-<td>cb</td>
-</tr>
-<tr>
-<td>Spinner</td>
-<td>spinner</td>
-</tr>
-<tr>
-<td>TableLayout</td>
-<td>table</td>
-</tr>
-<tr>
-<td>TableRow</td>
-<td>row</td>
-</tr>
-<tr>
-<td>LinearLayout</td>
-<td>ll</td>
-</tr>
-<tr>
-<td>RelativeLayout</td>
-<td>rl</td>
-</tr>
-<tr>
-<td>ScrollView</td>
-<td>scroll</td>
-</tr>
-<tr>
-<td>SearchView</td>
-<td>search</td>
-</tr>
-<tr>
-<td>TabHost</td>
-<td>thost</td>
-</tr>
-<tr>
-<td>TabWidget</td>
-<td>twidget</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常见的英文单词缩写表"><a href="#常见的英文单词缩写表" class="headerlink" title="常见的英文单词缩写表"></a>常见的英文单词缩写表</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>缩写</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>icon</td>
-<td>ic （主要用在app的图标）</td>
-</tr>
-<tr>
-<td>color</td>
-<td>cl（主要用于颜色值）</td>
-</tr>
-<tr>
-<td>divider</td>
-<td>di（主要用于分隔线，不仅包括Listview中的divider，还包括普通布局中的线）</td>
-</tr>
-<tr>
-<td>selector</td>
-<td>sl（主要用于某一view多种状态，不仅包括Listview中的selector，还包括按钮的selector）</td>
-</tr>
-<tr>
-<td>average</td>
-<td>avg</td>
-</tr>
-<tr>
-<td>background</td>
-<td>bg（主要用于布局和子布局的背景）</td>
-</tr>
-<tr>
-<td>buffer</td>
-<td>buf</td>
-</tr>
-<tr>
-<td>control</td>
-<td>ctrl</td>
-</tr>
-<tr>
-<td>delete</td>
-<td>del</td>
-</tr>
-<tr>
-<td>document</td>
-<td>doc</td>
-</tr>
-<tr>
-<td>error</td>
-<td>err</td>
-</tr>
-<tr>
-<td>escape</td>
-<td>esc</td>
-</tr>
-<tr>
-<td>increment</td>
-<td>inc</td>
-</tr>
-<tr>
-<td>infomation</td>
-<td>info</td>
-</tr>
-<tr>
-<td>initial</td>
-<td>init</td>
-</tr>
-<tr>
-<td>image</td>
-<td>img</td>
-</tr>
-<tr>
-<td>Internationalization</td>
-<td>I18N</td>
-</tr>
-<tr>
-<td>length</td>
-<td>len</td>
-</tr>
-<tr>
-<td>library</td>
-<td>lib</td>
-</tr>
-<tr>
-<td>message</td>
-<td>msg</td>
-</tr>
-<tr>
-<td>password</td>
-<td>pwd</td>
-</tr>
-<tr>
-<td>position</td>
-<td>pos</td>
-</tr>
-<tr>
-<td>server</td>
-<td>srv</td>
-</tr>
-<tr>
-<td>string</td>
-<td>str</td>
-</tr>
-<tr>
-<td>temp</td>
-<td>tmp</td>
-</tr>
-<tr>
-<td>window</td>
-<td>wnd(win)</td>
-</tr>
-</tbody>
-</table>
-<p>程序中使用单词缩写原则：不要用缩写，除非该缩写是约定俗成的。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://102.alibaba.com/newsInfo.htm?newsId=6" target="_blank" rel="noopener">阿里巴巴Java开发手册</a></p>
-<p><a href="http://www.hawstein.com/posts/google-java-style.html" target="_blank" rel="noopener">Google Java编程风格指南</a></p>
-<p><a href="http://www.jianshu.com/p/436943216526" target="_blank" rel="noopener">小细节，大用途，35 个 Java 代码性能优化总结！</a></p>
-<h2 id="版本日志"><a href="#版本日志" class="headerlink" title="版本日志"></a>版本日志</h2><ul>
-<li>17/03/13: 发布初版 ；</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/安卓开发规范updating/" data-id="cjb0ungf6002zq9dpd7gdbwfp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="cjb8owhzh002fmxdp9gmkkxld" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1478,7 +622,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -1530,23 +674,23 @@
       <ul>
         
           <li>
-            <a href="/2017/12/10/android-设备id问题汇总-0/">android 设备id问题汇总</a>
+            <a href="/2017/12/16/备忘录模式实现与研究/">备忘录模式实现与研究</a>
           </li>
         
           <li>
-            <a href="/2017/12/10/构建模式实现与研究/">构建模式实现与研究</a>
+            <a href="/2017/12/16/模版方法模式实现与研究/">模版方法模式实现与研究</a>
           </li>
         
           <li>
-            <a href="/2017/12/10/策略模式实现与研究/">策略模式实现与研究</a>
+            <a href="/2017/12/16/组合模式实现与研究/">组合模式实现与研究</a>
           </li>
         
           <li>
-            <a href="/2017/12/10/观察者模式实现与研究/">观察者模式实现与研究</a>
+            <a href="/2017/12/16/装饰者模式（Decorator）实现与研究/">装饰者模式（Decorator）实现与研究</a>
           </li>
         
           <li>
-            <a href="/2017/12/10/代理模式实现与研究/">代理模式实现与研究</a>
+            <a href="/2017/12/16/适配器模式实现与研究/">适配器模式实现与研究</a>
           </li>
         
       </ul>
