@@ -14,7 +14,7 @@
 <meta property="og:description" content="前言最近在看viewgroup 的自定义view过程，闲来无事，写一个 常见的选择标签控件，发现这个过程遇到一些坑😄 需求分析 需要定义个容器类，linerlayout ，relativelayout,viewgroup.等，由于存在换行问题，还是用viewgroup做 里面的条目是圆角的，并且随着文字长度变化，需要找美工？算了，自己写吧😢 测量的时候宽度整体matchparent 不用考虑了">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://o8ra1yomr.bkt.clouddn.com/屏幕快照%202017-12-29%20下午5.33.33.png">
-<meta property="og:updated_time" content="2017-12-30T13:14:45.000Z">
+<meta property="og:updated_time" content="2017-12-30T13:28:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义view－标签">
 <meta name="twitter:description" content="前言最近在看viewgroup 的自定义view过程，闲来无事，写一个 常见的选择标签控件，发现这个过程遇到一些坑😄 需求分析 需要定义个容器类，linerlayout ，relativelayout,viewgroup.等，由于存在换行问题，还是用viewgroup做 里面的条目是圆角的，并且随着文字长度变化，需要找美工？算了，自己写吧😢 测量的时候宽度整体matchparent 不用考虑了">
@@ -56,9 +56,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -109,7 +109,8 @@
 <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
 <li>onMeasure方法中如果不实现 measureChild()方法屏幕不会显示任何东西</li>
 <li>onMeasure 测量模式EXACTLY对应match_parent 或具体值 而AT_MOST对应wrap_content</li>
-<li><p>MarginLayoutParams的获得需要重写generateLayoutParams（）方法，传入具体的MarginLayoutParams，否则向下转型不安全运行报转型异常<br>java.lang.ClassCastException: android.view.ViewGroup$LayoutParams cannot be cast to android.view.ViewGroup$MarginLayoutParams</p>
+<li><p>MarginLayoutParams的获得需要重写generateLayoutParams（）方法，传入具体的MarginLayoutParams，否则向下转型不安全运行报转型异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ClassCastException: android.view.ViewGroup$LayoutParams cannot be cast to android.view.ViewGroup$MarginLayoutParams</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>换行的处理需要一行一行处理，如果统一处理会发现距离左边距并不是无限变大，换行又要从头开始。</p>
 </li>
@@ -119,7 +120,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/30/自定义view－标签/" data-id="cjbtdfw000040todpm38qj9m9" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/12/30/自定义view－标签/" data-id="cjbtduzv50041uqdp5opt6v4h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
@@ -132,7 +133,7 @@
   
   
     <a href="/2017/12/30/解释器模式实现与研究/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ancien</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">解释器模式实现与研究</div>
     </a>
   
@@ -147,7 +148,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Config/">Config</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CustomView/">CustomView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
@@ -157,7 +158,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
     </div>
@@ -167,7 +168,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
     </div>
@@ -186,7 +187,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -223,7 +224,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 bei1999<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
