@@ -51,7 +51,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,6 +61,103 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Application-问题总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/Application-问题总结/" class="article-date">
+  <time datetime="2017-12-02T12:38:43.000Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/Application-问题总结/">Application 问题总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>实际开发项目中经常遇到关于application 的问题，总结一下吧</p>
+<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><h3 id="Application-onCreate-方法被反复调用？"><a href="#Application-onCreate-方法被反复调用？" class="headerlink" title="Application onCreate()方法被反复调用？"></a>Application onCreate()方法被反复调用？</h3><p>理论上认为android 系统中application 是一个单例（一点不假！）然而在项目中存在多进程时候，单例范围只能在本进程中，比如推送，地图等进程有时候会初始化application ，so需要判断下执行的进程名字。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!AppUtils.getCurProcessName(<span class="keyword">this</span>).equals(getPackageName())) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。"><a href="#极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。" class="headerlink" title="极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。"></a>极光推送收到通知时，经常要各种跳转。那么一大堆问题来了：收到通知时，应用是否打开？应用打开了是否处于前台（有没有按Home键之类的）？处于栈顶的Activity是否是你要跳转的Activity？栈顶的Activity是否又是登录页面等等…下面带大家看看如何有效使用ActivityLifecycleCallbacks来解决这一系列问题。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JPushReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Context context;</span><br><span class="line">        <span class="keyword">private</span> ActivityLifecycleCallbacks activityLifecycleCallbacks;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.context = context;</span><br><span class="line">            MyApplication application = (MyApplication) context.getApplicationContext();</span><br><span class="line">            activityLifecycleCallbacks = application.activityLifecycleCallbacks;</span><br><span class="line"><span class="comment">//            如果应用处于前台做某些操作（一般此时，收到通知和点击通知栏做相同的操作）</span></span><br><span class="line">            <span class="keyword">if</span> (activityLifecycleCallbacks.isFront()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (activityLifecycleCallbacks.current() <span class="keyword">instanceof</span> SomeActivity) &#123;</span><br><span class="line"><span class="comment">//                    如果当前Activity是要跳转的Activity，做某些操作，一般不跳转，可用EventBus</span></span><br><span class="line">                    、、、</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//                    否则执行跳转或其他相关操作等</span></span><br><span class="line">                   、、、</span><br><span class="line">                &#125;</span><br><span class="line">                、、、</span><br><span class="line">            &#125;<span class="keyword">else</span>  <span class="keyword">if</span> (<span class="string">"cn.jpush.android.intent.NOTIFICATION_OPENED"</span>.equals(intent.getAction()))&#123;</span><br><span class="line"><span class="comment">//                应用处于不可见状态，一般点击通知栏是跳转到某个页面</span></span><br><span class="line">                、、、</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了上面的需求，关于app 所有的activity 的状态都可以获取和管理，比如说BaseActivity的方式或者每打开一个Activity把当前的引用加入到集合中的方式更优雅<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册ActivityListener</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerActivityListener</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.ICE_CREAM_SANDWICH) &#123;</span><br><span class="line">            registerActivityLifecycleCallbacks(<span class="keyword">new</span> ActivityLifecycleCallbacks() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityCreated</span><span class="params">(Activity activity, Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">null</span> == mActivitys) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    mActivitys.add(activity);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityStarted</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    Log.d(<span class="string">"bei"</span>, <span class="string">"register-onActivityStarted"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityResumed</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    Log.d(<span class="string">"bei"</span>, <span class="string">"register-onActivityResumed"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityPaused</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    Log.d(<span class="string">"bei"</span>, <span class="string">"register-onActivityPaused"</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityStopped</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivitySaveInstanceState</span><span class="params">(Activity activity, Bundle outState)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityDestroyed</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">null</span> == activity &amp;&amp; mActivitys.isEmpty()) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (mActivitys.contains(activity)) &#123;</span><br><span class="line">                        mActivitys.remove(activity);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="crash-捕获"><a href="#crash-捕获" class="headerlink" title="crash 捕获"></a>crash 捕获</h3><p>使用过线上的bug 管理，本地写入文件方式的管理，最近发现个异常补货的工具包，适合在开发模式下进行直观的bug activity 日志显示，方便测试与开发沟通<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**crash异常捕获*/</span></span><br><span class="line"><span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</span><br><span class="line">    CustomActivityOnCrash.install(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>gradle 导入<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile 'cat.ereza:customactivityoncrash:1.5.0' //crash catch</span><br></pre></td></tr></table></figure></p>
+<p>这个gradle 包目前已经更新了，可以定制写页面参数，感兴趣的可以看看</p>
+<p><a href="https://github.com/Ereza/CustomActivityOnCrash.git" target="_blank" rel="noopener">项目地址</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="cjcet4nk9000fksdptg890wlr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-自定义view－时钟表-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/自定义view－时钟表-二/" class="article-date">
+  <time datetime="2017-12-02T12:37:06.000Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CustomView/">CustomView</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/自定义view－时钟表-二/">自定义view－时钟表(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面用canvas 简单实现了一个数字表，接下来丰富下这个表！</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>练习使用canvas 的其他方法，添加指针和表盘刻度</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>指针 没有美工！暂时圆点代替吧。drawCircle<br>表盘刻度 360 先均分吧 drawLine<br>指针要旋转 canvas rotate（）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; DEFAULT_TOTAL_CLOCK_SCALE_LINE_NUM; i++) &#123;</span><br><span class="line">           canvas.drawLine(mClockViewCenterX, clockScaleLineStartY,</span><br><span class="line">                   mClockViewCenterX, clockScaleLineEndY, mPaint);</span><br><span class="line">           canvas.rotate(ANGLE_PER_SCALE, mClockViewCenterX, mClockViewCenterY);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>红点<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mPaint.setColor(mClockPointColor);</span><br><span class="line">        canvas.drawCircle(mClockPointCenterX, mClockPointCenterY, mClockPointRadius, mPaint);</span><br></pre></td></tr></table></figure></p>
+<p>测量部分<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> len = w &gt; h ? h : w;</span><br><span class="line">mClockViewRectF.set(<span class="number">0</span>, <span class="number">0</span>, len, len);</span><br><span class="line">mClockViewRectF.offset((w - len) / <span class="number">2</span>, (h - len) / <span class="number">2</span>);</span><br><span class="line">mClockViewCenterX = (<span class="keyword">int</span>) mClockViewRectF.centerX();</span><br><span class="line">mClockViewCenterY = (<span class="keyword">int</span>) mClockViewRectF.centerY();</span><br><span class="line">mDigitalTimeTextStartX</span><br></pre></td></tr></table></figure></p>
+<p>接下来还需找ui完善下表头等</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="cjcet4nm9003vksdpy663m0cn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clock/">clock</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-自定义view－时钟表" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -102,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjbtduzv4003wuqdpl8w0rg5t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="cjcet4nmc0045ksdppzmcpjjg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clock/">clock</a></li></ul>
@@ -166,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="cjbtduzt9000yuqdp8bm1ftjg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="cjcet4nkn0012ksdpuies1zjx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
@@ -223,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="cjbtduzt6000wuqdpg7xpg2ua" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="cjcet4nkh000wksdpt4owezvv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -269,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="cjbtduzv2003quqdpkovfguz2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="cjcet4nm6003qksdpc5g4cpxy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -353,7 +450,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="cjbtduzsa0002uqdp53nldhpr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="cjcet4njs0002ksdpmmbn4rmf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/16/webview-遇到的坑/" class="article-date">
+  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/webview-遇到的坑/">webview 遇到的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
+<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
+<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
+<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
+<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="cjcet4nlg002lksdpuhfvv3n1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -432,54 +576,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/关于手机屏幕dp，px，以及density/" data-id="cjbtduzuk002ouqdph5uu4y9g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/16/webview-遇到的坑/" class="article-date">
-  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/webview-遇到的坑/">webview 遇到的坑</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
-<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
-<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
-<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
-<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="cjbtduzua002duqdpwxgqdfa5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/16/关于手机屏幕dp，px，以及density/" data-id="cjcet4nlp002vksdpynv4tlux" class="article-share-link">Share</a>
       
       
     </footer>
@@ -527,103 +624,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/23/混淆总结/" data-id="cjbtduzuw003fuqdpytmixjng" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/23/混淆总结/" data-id="cjcet4nm2003kksdpgaojonaj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ProGuard/">ProGuard</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" class="article-date">
-  <time datetime="2017-04-17T10:48:11.000Z" itemprop="datePublished">2017-04-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/">Retrofit2 Okhttp3 返回ResponseBody出现java.lang.IllegalStateException: closed</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天在retrofit调试网络请求的时候一直在onError()里面出现异常抛出java.lang.IllegalStateException: closed<br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">AppService appService = AppEngine.getInstance().getAppService();</span><br><span class="line">        subscriptionList.add(appService.oauthLogin(socialLoginRequestBean)</span><br><span class="line">                .map(<span class="keyword">new</span> Func1&lt;SocialLoginResponseBean, SocialLoginResponseBean&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> SocialLoginResponseBean <span class="title">call</span><span class="params">(SocialLoginResponseBean socialLoginResponseBean)</span> </span>&#123;</span><br><span class="line">                        <span class="comment">//status</span></span><br><span class="line">                        LogUtil.d(<span class="string">"call-------------"</span>);</span><br><span class="line">                        <span class="keyword">if</span> (!TextUtils.isEmpty(socialLoginResponseBean.errorMsg)) &#123;</span><br><span class="line">                            LogUtil.d(<span class="string">"socialLoginResponseBean.errorMsg :"</span>+socialLoginResponseBean.errorMsg);</span><br><span class="line">                            <span class="keyword">throw</span> <span class="keyword">new</span> ExplicitException(socialLoginResponseBean.getErrorMsg());</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> socialLoginResponseBean;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .onErrorResumeNext(<span class="keyword">new</span> Func1&lt;Throwable, Observable&lt;? extends SocialLoginResponseBean&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> Observable&lt;? extends SocialLoginResponseBean&gt; call(Throwable throwable) &#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"打印throwable :"</span>+throwable.getMessage());</span><br><span class="line">                        <span class="keyword">return</span> ExceptionUtil.getNetworkError(throwable);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .subscribeOn(Schedulers.io())</span><br><span class="line">                .unsubscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Subscriber&lt;SocialLoginResponseBean&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"登录请求打印onError()"</span>+e.getMessage());</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(SocialLoginResponseBean socialLoginResponseBean)</span> </span>&#123;</span><br><span class="line">                        LogUtil.d(<span class="string">"登录请求打印token"</span>+socialLoginResponseBean.getData().getUserToken());</span><br><span class="line">                        handleResponse(socialLoginResponseBean);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;));</span><br></pre></td></tr></table></figure></p>
-<p>发现问题在下面的调试代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> builder.addNetworkInterceptor(<span class="keyword">new</span> AppInterceptor());</span><br><span class="line"> builder.addInterceptor(<span class="keyword">new</span> Interceptor() &#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        Response response = chain.proceed(request);</span><br><span class="line">        String responseStr = response.body().string();</span><br><span class="line">        LogUtil.e(<span class="string">"request:"</span> + request.body().toString()+ <span class="string">"respone:"</span> + responseStr);</span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p><strong>基于okhttp3的返回对象ResponseBody ,其中的string()方法只可调用一次,调用完毕会执行closed相关方法.再调用会报错</strong></p>
-<p>正确的打印log姿势为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</span><br><span class="line">    HttpLoggingInterceptor logging = <span class="keyword">new</span> HttpLoggingInterceptor();</span><br><span class="line">    logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);</span><br><span class="line">    logging.setLevel(HttpLoggingInterceptor.Level.BODY);</span><br><span class="line">    builder.addInterceptor(logging).build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>gradle 导包<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'</span><br></pre></td></tr></table></figure></p>
-<p>log tags :OkHttp</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" data-id="cjbtduzte0016uqdp38lhprx8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-冒泡排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/16/冒泡排序/" class="article-date">
-  <time datetime="2017-04-16T11:13:12.000Z" itemprop="datePublished">2017-04-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/16/冒泡排序/">冒泡排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>想到的关于冒泡的两种实现方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by lzb on 17/2/19.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSortTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] data = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">3</span>, <span class="number">7</span>&#125;;</span><br><span class="line">        bubbleSort01(data);</span><br><span class="line">        bubbleSort02(data);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//小的元素向下移（气泡的下沉)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort01</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次循环"</span>);</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; data.length; j++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"i,j"</span> + <span class="string">"==="</span> + i + <span class="string">","</span> + j);</span><br><span class="line">                <span class="keyword">if</span> (data[i] &gt; data[j]) &#123;</span><br><span class="line">                    temp = data[i];</span><br><span class="line">                    data[i] = data[j];</span><br><span class="line">                    data[j] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Arrays.toString(data));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//大的元素向上移（气泡的上浮)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort02</span><span class="params">(<span class="keyword">int</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次循环"</span>);</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; data.length - i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"j,j+1"</span> + <span class="string">"==="</span> + j + <span class="string">","</span> + (j + <span class="number">1</span>));</span><br><span class="line">                <span class="keyword">if</span> (data[j] &gt; data[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    temp = data[j];</span><br><span class="line">                    data[j] = data[j + <span class="number">1</span>];</span><br><span class="line">                    data[j + <span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Arrays.toString(data));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/16/冒泡排序/" data-id="cjbtduzul002ruqdpasb8wyn7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
     </footer>
   </div>
@@ -643,7 +647,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorier</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Config/">Config</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CustomView/">CustomView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
@@ -655,7 +659,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
     </div>
   </div>
 
@@ -665,16 +669,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
+      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/media/" style="font-size: 13.33px;">media</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Arkiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
   </div>
 
@@ -682,9 +686,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Siste innlegg</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/01/14/Ijkplayer-android端执行流程分析/">Ijkplayer android端执行流程分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/14/android-播放器调研分析/">android 播放器调研分析</a>
+          </li>
         
           <li>
             <a href="/2017/12/30/自定义view－标签/">自定义view－标签</a>
@@ -696,14 +708,6 @@
         
           <li>
             <a href="/2017/12/30/跨进程通讯之AIDL总结实现/">跨进程通讯之AIDL总结实现</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/30/迭代器模式实现与研究/">迭代器模式实现与研究</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/30/责任链模式实现与研究/">责任链模式实现与研究</a>
           </li>
         
       </ul>
@@ -718,7 +722,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 bei1999<br>
+      &copy; 2018 bei1999<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

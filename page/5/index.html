@@ -51,7 +51,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,6 +61,104 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Jenkins-使用篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/30/Jenkins-使用篇/" class="article-date">
+  <time datetime="2016-10-30T13:17:13.000Z" itemprop="datePublished">2016-10-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Config/">Config</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/30/Jenkins-使用篇/">Jenkins 使用篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/30/Jenkins-使用篇/" data-id="cjcet4nkc000nksdp6ak1s4zz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Jenkins持续集成环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/30/Jenkins持续集成环境搭建/" class="article-date">
+  <time datetime="2016-10-30T11:25:48.000Z" itemprop="datePublished">2016-10-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Config/">Config</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/30/Jenkins持续集成环境搭建/">Jenkins 持续集成环境搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在弄持续集成环境，把过程记录一下</p>
+<h1 id="1-命令安装"><a href="#1-命令安装" class="headerlink" title="1.命令安装"></a>1.命令安装</h1><h2 id="jenkins-安装"><a href="#jenkins-安装" class="headerlink" title="jenkins 安装"></a>jenkins 安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> brew install jenkins</span><br></pre></td></tr></table></figure>
+<h2 id="jenkins-启动"><a href="#jenkins-启动" class="headerlink" title="jenkins 启动"></a>jenkins 启动</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> jenkins</span><br></pre></td></tr></table></figure>
+<h2 id="jenkins-卸载"><a href="#jenkins-卸载" class="headerlink" title="jenkins 卸载"></a>jenkins 卸载</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> brew uninstall jenkins</span><br></pre></td></tr></table></figure>
+<h2 id="brew-安装"><a href="#brew-安装" class="headerlink" title="brew 安装"></a>brew 安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span><br></pre></td></tr></table></figure>
+<h1 id="2-访问Jenkins"><a href="#2-访问Jenkins" class="headerlink" title="2.访问Jenkins"></a>2.访问Jenkins</h1><p><a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a></p>
+<h2 id="用默认的密码进入后，安装推荐的插件"><a href="#用默认的密码进入后，安装推荐的插件" class="headerlink" title="用默认的密码进入后，安装推荐的插件"></a>用默认的密码进入后，安装推荐的插件</h2><p>屏幕快照-2016-10-30-下午7.00.29.png</p>
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>屏幕快照-2016-10-30-下午7.03.57.png</p>
+<h2 id="系统设置－首先修改用户的安全策略"><a href="#系统设置－首先修改用户的安全策略" class="headerlink" title="系统设置－首先修改用户的安全策略"></a>系统设置－首先修改用户的安全策略</h2><p>屏幕快照-2016-10-30-下午7.06.38.png </p>
+<h2 id="新建个项目"><a href="#新建个项目" class="headerlink" title="新建个项目"></a>新建个项目</h2><p>{屏幕快照-2016-10-30-下午7.16.49.png</p>
+<h2 id="选择使用的版本控制，我这里选择了git"><a href="#选择使用的版本控制，我这里选择了git" class="headerlink" title="选择使用的版本控制，我这里选择了git"></a>选择使用的版本控制，我这里选择了git</h2><p>屏幕快照-2016-10-30-下午7.18.32.png</p>
+<p> <strong>如果ssh等认证，需要在高级里面添加</strong></p>
+<h2 id="这里因为是android项目，所以选择gradle构建"><a href="#这里因为是android项目，所以选择gradle构建" class="headerlink" title="这里因为是android项目，所以选择gradle构建"></a>这里因为是android项目，所以选择gradle构建</h2><p>屏幕快照-2016-10-30-下午7.19.43.png </p>
+<h2 id="开始构建"><a href="#开始构建" class="headerlink" title="开始构建"></a>开始构建</h2><p>屏幕快照-2016-10-30-下午7.20.27.png</p>
+<h2 id="日志输出"><a href="#日志输出" class="headerlink" title="日志输出"></a>日志输出</h2><p>屏幕快照-2016-10-30-下午7.21.24.png</p>
+<h2 id="最后的结果显示路径"><a href="#最后的结果显示路径" class="headerlink" title="最后的结果显示路径"></a>最后的结果显示路径</h2><p> 屏幕快照-2016-10-30-下午7.21.54.png</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/30/Jenkins持续集成环境搭建/" data-id="cjcet4nkm0010ksdpryz7wnqq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Retrofit-OkHttp-RxAndroid-网络请求" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -92,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/22/Retrofit-OkHttp-RxAndroid-网络请求/" data-id="cjbtduzta000zuqdpobf8tm17" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/22/Retrofit-OkHttp-RxAndroid-网络请求/" data-id="cjcet4nkj000xksdp0wkbk2rs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
@@ -146,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/19/git-flow-使用过程/" data-id="cjbtduzty0021uqdpzsdgunuh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/19/git-flow-使用过程/" data-id="cjcet4nla0029ksdp3bqf2ttk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/27/android-启动白屏与黑屏优化/" data-id="cjbtduzto001puqdpbi7rd6uh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/27/android-启动白屏与黑屏优化/" data-id="cjcet4nky001jksdpylq8yq56" class="article-share-link">Share</a>
       
       
     </footer>
@@ -243,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/20/Android-M-permission/" data-id="cjbtduzs50001uqdpeo1x269s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/20/Android-M-permission/" data-id="cjcet4nk10007ksdpg5upyo69" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/permission/">permission</a></li></ul>
@@ -281,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/13/android-AsyncTask-使用总结/" data-id="cjbtduztg001auqdplte4ak17" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/13/android-AsyncTask-使用总结/" data-id="cjcet4nks001eksdp8jkrj97f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -325,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/11/二分法查找/" data-id="cjbtduzud002guqdp83xbnjsi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/11/二分法查找/" data-id="cjcet4nlo002rksdp3xoxsxbc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -365,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/04/android-listview-性能优化/" data-id="cjbtduztl001iuqdprti4e4bt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/04/android-listview-性能优化/" data-id="cjcet4nkz001nksdprynfmrxa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -405,106 +503,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/03/android-跨进程通讯/" data-id="cjbtduztw001yuqdpvb9zuocg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/03/android-跨进程通讯/" data-id="cjcet4nl80026ksdprvkn7idj" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于二进制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/30/关于二进制/" class="article-date">
-  <time datetime="2016-06-30T13:59:32.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/关于二进制/">关于二进制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="十进制数转换为二进制数"><a href="#十进制数转换为二进制数" class="headerlink" title=" _十进制数转换为二进制数_"></a><strong> _十进制数转换为二进制数_</strong></h1><h2 id="1-正整数转二进制-除2取余，逆序排列"><a href="#1-正整数转二进制-除2取余，逆序排列" class="headerlink" title="1.正整数转二进制  除2取余，逆序排列"></a><strong>1.正整数转二进制  除2取余，逆序排列</strong></h2><p>erjinzhiyuanli.jpg</p>
-<h2 id="2-小数转二进制-乘2取整至最后小数部分为0，结果0-x"><a href="#2-小数转二进制-乘2取整至最后小数部分为0，结果0-x" class="headerlink" title="2.小数转二进制 乘2取整至最后小数部分为0，结果0.x"></a><strong>2.小数转二进制 乘2取整至最后小数部分为0，结果0.x</strong></h2><h3 id="这里我们以十进制小数0-125为例，先用0-125乘以2等于0-25，我们把整数部分0提取出来，再用小数部分继续计算。"><a href="#这里我们以十进制小数0-125为例，先用0-125乘以2等于0-25，我们把整数部分0提取出来，再用小数部分继续计算。" class="headerlink" title="这里我们以十进制小数0.125为例，先用0.125乘以2等于0.25，我们把整数部分0提取出来，再用小数部分继续计算。"></a>这里我们以十进制小数0.125为例，先用0.125乘以2等于0.25，我们把整数部分0提取出来，再用小数部分继续计算。</h3><p>erjinzhi_xiaoshu_01.png</p>
-<h3 id="取上一次计算的小数部分25填上0-构成新的小数0-25继续乘以2等于0-5，我们把整数部分0提取出来，再用小数部分继续计算。"><a href="#取上一次计算的小数部分25填上0-构成新的小数0-25继续乘以2等于0-5，我们把整数部分0提取出来，再用小数部分继续计算。" class="headerlink" title="取上一次计算的小数部分25填上0.构成新的小数0.25继续乘以2等于0.5，我们把整数部分0提取出来，再用小数部分继续计算。"></a>取上一次计算的小数部分25填上0.构成新的小数0.25继续乘以2等于0.5，我们把整数部分0提取出来，再用小数部分继续计算。</h3><p>erjinzhi_xiaoshu_02.png </p>
-<h3 id="用同样的方法用0-和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。"><a href="#用同样的方法用0-和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。" class="headerlink" title="用同样的方法用0.和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。"></a>用同样的方法用0.和小数部分构成新小数，并提取整数部分，知道最后小数部分为0为止。</h3><p>erjinzhi_xiaoshu_03.png</p>
-<h3 id="现在我们可以看到提取的整数依次为：0-0-1，现在我们在其前面加上0-即0-001，这就是转换好的二进制小数。"><a href="#现在我们可以看到提取的整数依次为：0-0-1，现在我们在其前面加上0-即0-001，这就是转换好的二进制小数。" class="headerlink" title="现在我们可以看到提取的整数依次为：0,0,1，现在我们在其前面加上0.即0.001，这就是转换好的二进制小数。"></a>现在我们可以看到提取的整数依次为：0,0,1，现在我们在其前面加上0.即0.001，这就是转换好的二进制小数。</h3><p>erjinzhi_xiaoshu_04.png</p>
-<h2 id="3-负整数转二进制："><a href="#3-负整数转二进制：" class="headerlink" title="3.负整数转二进制："></a><strong>3.负整数转二进制：</strong></h2><h3 id="这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。"><a href="#这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。" class="headerlink" title="这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。"></a>这里我们以-201为例，首先把201的二进制数求反，即把各位数的“1”变为“0”，“0”变为“1”。</h3><p>erjinzhi_fushu_01.png</p>
-<h3 id="现在把求反后的数字在加上1，变回得到相应的二进制数了。"><a href="#现在把求反后的数字在加上1，变回得到相应的二进制数了。" class="headerlink" title="现在把求反后的数字在加上1，变回得到相应的二进制数了。"></a>现在把求反后的数字在加上1，变回得到相应的二进制数了。</h3><p>erjinzhi_fushu_02.png</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/30/关于二进制/" data-id="cjbtduzuh002kuqdp1pkai1cc" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-内存分析过程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/30/java-内存分析过程/" class="article-date">
-  <time datetime="2016-06-30T10:16:41.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/java-内存分析过程/">java 内存分析过程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Created by bei on 16/6/29.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BirthDate</span> </span>&#123;</span><br><span class="line">   	<span class="keyword">public</span> <span class="keyword">int</span> day;</span><br><span class="line">   	<span class="keyword">public</span> <span class="keyword">int</span> mounth;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> year;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BirthDate</span><span class="params">(<span class="keyword">int</span> day, <span class="keyword">int</span> mounth, <span class="keyword">int</span> year)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.day = day;</span><br><span class="line">        <span class="keyword">this</span>.mounth = mounth;</span><br><span class="line">        <span class="keyword">this</span>.year = year;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">change1</span><span class="params">(<span class="keyword">int</span> year)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.year = year;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">change2</span><span class="params">(BirthDate date)</span></span>&#123;</span><br><span class="line">        date = <span class="keyword">new</span> BirthDate(<span class="number">22</span>,<span class="number">2</span>,<span class="number">2004</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.print(day+<span class="string">"/"</span>+mounth+<span class="string">"/"</span>+year);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>main函数验证<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by bei on 16/6/29.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        BirthDate birthDate01 = <span class="keyword">new</span> BirthDate(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1990</span>);</span><br><span class="line">        BirthDate birthDate02 = <span class="keyword">new</span> BirthDate(<span class="number">2</span>,<span class="number">3</span>,<span class="number">1989</span>);</span><br><span class="line">        birthDate01.change1(<span class="number">2000</span>);</span><br><span class="line">        birthDate02.change2(birthDate01);</span><br><span class="line"></span><br><span class="line">        birthDate01.display();</span><br><span class="line"></span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        birthDate02.display();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>内存分析过程如下</p>
-<p>heap_seq.jpg</p>
-<p><strong><em>基本数据类型存栈一块内存中。</em></strong></p>
-<p><strong><em>引用数据类型存栈和堆两块内存中。</em></strong></p>
-<p><strong><em>方法执行完毕，方法相关的局部变量将在栈中释放掉。</em></strong></p>
-<p><strong><em>失去引用关系的内存空间，在jvm处理下会进行回收。</em></strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/30/java-内存分析过程/" data-id="cjbtduzu00024uqdpuiqzqs57" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
     </footer>
   </div>
   
@@ -523,7 +524,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Kategorier</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Config/">Config</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CustomView/">CustomView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li></ul>
     </div>
@@ -535,7 +536,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
     </div>
   </div>
 
@@ -545,16 +546,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
+      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/media/" style="font-size: 13.33px;">media</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Arkiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
     </div>
   </div>
 
@@ -562,9 +563,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Siste innlegg</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/01/14/Ijkplayer-android端执行流程分析/">Ijkplayer android端执行流程分析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/14/android-播放器调研分析/">android 播放器调研分析</a>
+          </li>
         
           <li>
             <a href="/2017/12/30/自定义view－标签/">自定义view－标签</a>
@@ -576,14 +585,6 @@
         
           <li>
             <a href="/2017/12/30/跨进程通讯之AIDL总结实现/">跨进程通讯之AIDL总结实现</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/30/迭代器模式实现与研究/">迭代器模式实现与研究</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/30/责任链模式实现与研究/">责任链模式实现与研究</a>
           </li>
         
       </ul>
@@ -598,7 +599,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 bei1999<br>
+      &copy; 2018 bei1999<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
