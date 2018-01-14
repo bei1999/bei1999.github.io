@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="bei1999 的博客">
 <meta property="og:description" content="前言项目中涉及到直播流，项目开发之初用了一款老外付费提供的播放器jwplayer，在实际的使用过程中发现了一些问题，这真是一段不堪回首的往事🙈，当然我下面会说明这点。 关于jwplayer既然我花钱了，为什么还是存在一些问题呢？？？首先，jwplayer 主推网页端播放器，客户端其实就是对网页播放器的一层包装，常规的一些播放等的操作其实洗洗琢磨还是可以使用的，然而我们有非常强大的产品同学希望对播">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-14T13:24:23.000Z">
+<meta property="og:updated_time" content="2018-01-14T13:38:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android 播放器调研分析">
 <meta name="twitter:description" content="前言项目中涉及到直播流，项目开发之初用了一款老外付费提供的播放器jwplayer，在实际的使用过程中发现了一些问题，这真是一段不堪回首的往事🙈，当然我下面会说明这点。 关于jwplayer既然我花钱了，为什么还是存在一些问题呢？？？首先，jwplayer 主推网页端播放器，客户端其实就是对网页播放器的一层包装，常规的一些播放等的操作其实洗洗琢磨还是可以使用的，然而我们有非常强大的产品同学希望对播">
@@ -175,9 +175,6 @@
 <li>外包合作team</li>
 </ol>
 <p>由于项目本身评估并不大，并且需要真正做过直播相关的项目团队，</p>
-<ul>
-<li>联系熊猫直播的单独开发人员进行合作，由于熊猫直播基于ijkplayer二次封装只支持http，https需要重新编译动态库，并且熊猫直播对于底层的优化属于商业机密，某些开发者无法获取，所以失去了一些核心优化代码。暂时搁置。</li>
-</ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>市面上做直播的平台如斗鱼，熊猫直播，美拍直播等都是内部team基于ijkplayer 继续的二次封装开发，比较大型的百度t5播放器，七牛云播放器等出于商业化考虑需要配合云服务使用，不能符合我们的需求。综上所述，目前的方案暂定尝试GSYVideoPlayer与VLC播放器通过进行开发，项目部分集成进行一个灰度测试比较使用的情况，时间充裕还是要基于IJKPlayer进行自己的播放器开发与维护。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://baike.baidu.com/item/%E5%A4%84%E7%90%86%E5%99%A8%E6%9E%B6%E6%9E%84/8535061?fr=aladdin" target="_blank" rel="noopener">CPU架构</a></p>
 <p><a href="http://ffmpeg.org/" target="_blank" rel="noopener">FFmpeg官网</a></p>
@@ -190,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/14/android-播放器调研分析/" data-id="cjcetc2ob001wlsdpmo9m8lde" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/14/android-播放器调研分析/" data-id="cjcettl09001vmddpg4ncpeiy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/media/">media</a></li></ul>
