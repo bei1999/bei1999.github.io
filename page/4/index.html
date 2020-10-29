@@ -62,6 +62,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/16/webview-遇到的坑/" class="article-date">
+  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/webview-遇到的坑/">webview 遇到的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
+<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
+<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
+<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
+<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="ckgur4ykn002h4z3ktvmewj5w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-混淆总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/07/23/混淆总结/" class="article-date">
@@ -100,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/23/混淆总结/" data-id="ckgti2r0j003k1i3kin0p6xt3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/23/混淆总结/" data-id="ckgur4ylb003p4z3k5t5y2inh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ProGuard/">ProGuard</a></li></ul>
@@ -149,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" data-id="ckgti2qz5001b1i3k85oeewlf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/17/Retrofit2-Okhttp3-返回ResponseBody出现java-lang-IllegalStateException-closed/" data-id="ckgur4yjp001d4z3koe5frt4s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
@@ -193,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/16/冒泡排序/" data-id="ckgti2r0a002z1i3kz7yvrx7q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/16/冒泡排序/" data-id="ckgur4ykx00324z3kj7z94pj7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -1090,7 +1137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/安卓开发规范updating/" data-id="ckgti2r0h003h1i3kqmcj2dw8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/安卓开发规范updating/" data-id="ckgur4yl7003l4z3kvck963st" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1126,7 +1173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/29/Android-应用进程保活处理/" data-id="ckgti2qyi000h1i3kq5wnrqen" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/29/Android-应用进程保活处理/" data-id="ckgur4yiz000d4z3kkxf1jtlo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1166,7 +1213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/29/Android-内存泄漏/" data-id="ckgti2qxo00021i3knat8zch8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/29/Android-内存泄漏/" data-id="ckgur4yio00064z3k7nvttvgl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1209,7 +1256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/20/Fresco-加载超大gif过程/" data-id="ckgti2qyd000a1i3ku996bdsa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/20/Fresco-加载超大gif过程/" data-id="ckgur4yj1000g4z3kh1lbv3zy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1251,7 +1298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/20/Glide-加载gif使用/" data-id="ckgti2qyg000f1i3k3iascu0p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/20/Glide-加载gif使用/" data-id="ckgur4yj3000k4z3k9vdy31y3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Glide/">Glide</a></li></ul>
@@ -1297,7 +1344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/18/Retrofit-传递数组参数/" data-id="ckgti2qz100181i3k3rc71hha" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/18/Retrofit-传递数组参数/" data-id="ckgur4yjn00194z3k8djvsua7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
@@ -1309,65 +1356,10 @@
 
 
   
-    <article id="post-Jenkins-问题汇总篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/30/Jenkins-问题汇总篇/" class="article-date">
-  <time datetime="2016-10-30T13:19:11.000Z" itemprop="datePublished">2016-10-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Config/">Config</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/30/Jenkins-问题汇总篇/">Jenkins 问题汇总篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>彻底卸载jenkins</em><br><strong>run this on Terminal:</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh "/Library/Application Support/Jenkins/Uninstall.command"</span><br></pre></td></tr></table></figure></p>
-<p><em>或 依次执行下面的命令</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist    </span><br><span class="line">sudo rm !$    </span><br><span class="line">sudo rm -rf /Applications/Jenkins "/Library/Application Support/Jenkins" /Library/Documentation/Jenkins    </span><br><span class="line">sudo rm -rf /Users/Shared/Jenkins    </span><br><span class="line"><span class="meta">#</span> if you want to get rid of all the jobs and builds:    </span><br><span class="line">sudo dscl . -delete /Users/jenkins    </span><br><span class="line"><span class="meta">#</span> delete the jenkins user and group (if you chose to use them):    </span><br><span class="line">sudo dscl . -delete /Groups/jenkins</span><br></pre></td></tr></table></figure></p>
-<p><em>设定jenkins 的密码</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo dscl . passwd /Users/jenkins 1234</span><br><span class="line">su jenkins</span><br><span class="line">Password: </span><br><span class="line">bash-3.2$ vim /Users/Shared/Jenkins/Home/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure></p>
-<p><em>mac android sdk 环境变量配置</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xxxMBP:~ lizhanbei$ cd ~</span><br><span class="line">xxxMBP:~ lizhanbei$ touch .bash_profile</span><br><span class="line">xxxMBP:~ lizhanbei$ open -e .bash_profile</span><br><span class="line">xxxMBP:~ lizhanbei$ source .bash_profile</span><br></pre></td></tr></table></figure></p>
-<p>export ANDROID_HOME=/Users/xxx/Library/Android/sdk<br>export PATH=$ANDROID_HOME/platform-tools:$PATH<br>export PATH=$ANDROID_HOME/tools:$PATH<br>export PATH=$ANDROID_HOME/build-tools/22.0.1:$PATH</p>
-<p><em>Jenkins 提示没有找到ANDROID_HOME的环境变量</em><br><strong>解决办法：</strong></p>
-<ul>
-<li>Go to Jenkins &gt; Manage Jenkins &gt; Configure System</li>
-<li>Check “Environment variables</li>
-<li>add name: ANDROID_HOME, value -&gt; your android sdk dir</li>
-<li>click “add”</li>
-<li>SCROLL DOWN CLICK SAVE</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/30/Jenkins-问题汇总篇/" data-id="ckgti2qyk000j1i3kpngwe3fa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jenkins/">jenkins</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -1387,7 +1379,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity-View/">Activity View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
     </div>
   </div>
 
@@ -1397,7 +1389,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/media/" style="font-size: 13.33px;">media</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
+      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Activity-View/" style="font-size: 10px;">Activity View</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/media/" style="font-size: 13.33px;">media</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
     </div>
   </div>
 
@@ -1419,6 +1411,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/29/Activity如何计算view的层级深度/">Activity如何计算view的层级深度</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/28/搜索项目apk文件/">搜索项目apk文件</a>
           </li>
         
@@ -1432,10 +1428,6 @@
         
           <li>
             <a href="/2017/12/30/自定义view－标签/">自定义view－标签</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/30/解释器模式实现与研究/">解释器模式实现与研究</a>
           </li>
         
       </ul>

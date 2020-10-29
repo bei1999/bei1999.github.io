@@ -62,6 +62,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-工厂模式实现与研究" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/10/工厂模式实现与研究/" class="article-date">
+  <time datetime="2017-12-10T13:44:33.000Z" itemprop="datePublished">2017-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Design-Pattern/">Design Pattern</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/10/工厂模式实现与研究/">工厂模式实现与研究</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>调用工厂里的方法来生产对象(产品)的。</p>
+<h2 id="场景模拟"><a href="#场景模拟" class="headerlink" title="场景模拟"></a>场景模拟</h2><p>以江南皮革厂举例说明。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>普通工厂模式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 定义产品接口</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 双肩包</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackPack</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 手提包</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandBag</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 钱包</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wallet</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makePackage</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 江南皮革厂</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BagFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">productBag</span><span class="params">(String type)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"backpack"</span>.equals(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> BackPack();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"handbag"</span>.equals(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> HandBag();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"wallet"</span>.equals(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Wallet();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"没有这种类型..."</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主类调用</span></span><br><span class="line"> BagFactory bagFactory = <span class="keyword">new</span> BagFactory();</span><br><span class="line"> Product product = bagFactory.productBag(<span class="string">"wallet"</span>);</span><br><span class="line"> product.makePackage();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的例子说明了江南皮革厂生产几种不同的包包，在调用的时候需要传参数去制造，但这种手动传参数有可能输入错误，可以用下面的反射实现工厂类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BagFactory02</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Product&gt; <span class="function">T <span class="title">createProduct</span><span class="params">(Class&lt;T&gt; clz)</span></span>&#123;</span><br><span class="line">        Product product=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            product=(Product) Class.forName(clz.getName()).newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (T) product;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用实现类</span></span><br><span class="line"> Product wallet = BagFactory02.createProduct(Wallet.class);</span><br><span class="line"> wallet.makePackage();</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>抽象工厂模式<br>随着业务订单增多，江南皮革厂没有倒闭，先需要拆分业务，生产工厂职能单一些，有了下面的方式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BagFactory03</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Product <span class="title">createProduct</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 成立双肩包厂</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackPackFatory</span> <span class="keyword">extends</span> <span class="title">BagFactory03</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BackPack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * author : lzb</span></span><br><span class="line"><span class="comment"> * e-mail : </span></span><br><span class="line"><span class="comment"> * time   : 2017/12/08</span></span><br><span class="line"><span class="comment"> * desc   : 成立钱包厂</span></span><br><span class="line"><span class="comment"> * version: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WalletFactory</span> <span class="keyword">extends</span> <span class="title">BagFactory03</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Wallet();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//单一职责，分厂生产不同类型</span></span><br><span class="line"> WalletFactory walletFactory = <span class="keyword">new</span> WalletFactory();</span><br><span class="line"> Product product02 = walletFactory.createProduct();</span><br><span class="line"> product02.makePackage();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上面的方式对工厂进行了抽象，使得每个工厂类进行了独立的运作，这种方式叫做抽象工厂模式。这样的好处是实现了职能单一处理。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面的例子通过java 简单的方式说明了下工厂模式的应用，在android 中能联想到的是线程池工厂的操作了，篇幅有限，有兴趣的可以去看看这部分的代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/10/工厂模式实现与研究/" data-id="ckgur4ylf003z4z3kdp9a8ni6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Android-Studio开发ARCore-初体验" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/02/Android-Studio开发ARCore-初体验/" class="article-date">
@@ -109,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="ckgti2qy200051i3k7sb9mv5o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Android-Studio开发ARCore-初体验/" data-id="ckgur4yif00044z3kv7779zn6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -157,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="ckgti2qy700071i3k6s484c7b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/Application-问题总结/" data-id="ckgur4yiy000c4z3kbkcwo60b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -204,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="ckgti2r0r00411i3kq328piws" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表-二/" data-id="ckgur4yli00484z3k1a6gm12s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clock/">clock</a></li></ul>
@@ -256,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="ckgti2r0s00441i3kb3cwlhne" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/自定义view－时钟表/" data-id="ckgur4ylj004b4z3kqkk1b8it" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clock/">clock</a></li></ul>
@@ -320,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="ckgti2qyv000z1i3kt3b2g161" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/26/Maven私服搭建/" data-id="ckgur4yjh00114z3kzf8f1nyf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
@@ -377,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="ckgti2qyt000w1i3ksrc0068l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/25/JitPack发布开源库/" data-id="ckgur4yjj00124z3k6lt2ynuy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -423,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="ckgti2r0n003s1i3kbcdlhnsl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/23/自定义View－饼状图/" data-id="ckgur4ylh00454z3k2scj4k8k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -507,54 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="ckgti2qxb00011i3kt1yyyf97" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webview-遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/16/webview-遇到的坑/" class="article-date">
-  <time datetime="2017-08-16T14:51:30.000Z" itemprop="datePublished">2017-08-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/webview-遇到的坑/">webview 遇到的坑</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-第一次进入可以顺利加载，再进入其他页面不能加载"><a href="#1-第一次进入可以顺利加载，再进入其他页面不能加载" class="headerlink" title="1 第一次进入可以顺利加载，再进入其他页面不能加载"></a>1 第一次进入可以顺利加载，再进入其他页面不能加载</h4><p>原因：旧版本新的新闻详情页只能第一次加载正常，其他次进入后不能正常加载（问题出现在旧版本页面暂停调用了h5中的）<br>javascript:CMSVideo.pauseAll（）方法<br>但新版本h5并没有使用这个方法，所以在进入的时候出现了问题。</p>
-<h4 id="2-判断网页加载完成的状态"><a href="#2-判断网页加载完成的状态" class="headerlink" title="2 判断网页加载完成的状态"></a>2 判断网页加载完成的状态</h4><p>给webview 添加一个loading 状态图，查看api，调用onPageFinished（），但其实根据我自己观察，这个函数并没有什么卵用，有的时候是提前结束，有的时候就迟迟无法结束，最后用了进度监听。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">wvBody.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;<span class="comment">//监听网页加载  </span></span><br><span class="line">            <span class="meta">@Override</span>  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;  </span><br><span class="line">                    <span class="comment">// 网页加载完成  </span></span><br><span class="line">                    pbProgress.setVisibility(View.GONE);  </span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                    <span class="comment">// 加载中  </span></span><br><span class="line">                    pbProgress.setProgress(newProgress);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">super</span>.onProgressChanged(view, newProgress);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="3-网页进度一定能到100-？"><a href="#3-网页进度一定能到100-？" class="headerlink" title="3 网页进度一定能到100%？"></a>3 网页进度一定能到100%？</h4><p>项目中发现页面中存在google ads等异步的加载，但在国内就悲剧了，不到100中间过程变的非常慢😓<br>解决： 暂时通过newProgress &gt;= 80 后开始显示界面。</p>
-<h4 id="4-webview-加载速度很慢"><a href="#4-webview-加载速度很慢" class="headerlink" title="4 webview 加载速度很慢"></a>4 webview 加载速度很慢</h4><p>  一句话概括：不要怀疑自己。</p>
-<p>  后来寻找引擎 crosswalk和TBS X5做为最后的选择。</p>
-<p>  crosswalk开源引擎，很赞，但是要接受20MB的肥料，想具体了解的话后面详细说明。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/webview-遇到的坑/" data-id="ckgti2r00002f1i3k0qrk3eof" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/12/Android O 适配总结/" data-id="ckgur4yia00024z3kkh35y7hb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -633,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/关于手机屏幕dp，px，以及density/" data-id="ckgti2r07002w1i3kln12se6n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/16/关于手机屏幕dp，px，以及density/" data-id="ckgur4ykw00304z3kupff8bzl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -646,7 +654,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -666,7 +674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity/">Activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activity-View/">Activity View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glide/">Glide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ImageView/">ImageView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jni/">Jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ndk/">Ndk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProGuard/">ProGuard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit/">Retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ScaleType/">ScaleType</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/clock/">clock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/permission/">permission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewgroup/">viewgroup</a></li></ul>
     </div>
   </div>
 
@@ -676,7 +684,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/media/" style="font-size: 13.33px;">media</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
+      <a href="/tags/Activity/" style="font-size: 13.33px;">Activity</a> <a href="/tags/Activity-View/" style="font-size: 10px;">Activity View</a> <a href="/tags/Glide/" style="font-size: 10px;">Glide</a> <a href="/tags/ImageView/" style="font-size: 10px;">ImageView</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jni/" style="font-size: 10px;">Jni</a> <a href="/tags/Ndk/" style="font-size: 10px;">Ndk</a> <a href="/tags/ProGuard/" style="font-size: 10px;">ProGuard</a> <a href="/tags/Retrofit/" style="font-size: 16.67px;">Retrofit</a> <a href="/tags/ScaleType/" style="font-size: 10px;">ScaleType</a> <a href="/tags/clock/" style="font-size: 13.33px;">clock</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jenkins/" style="font-size: 13.33px;">jenkins</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/media/" style="font-size: 13.33px;">media</a> <a href="/tags/permission/" style="font-size: 10px;">permission</a> <a href="/tags/viewgroup/" style="font-size: 10px;">viewgroup</a>
     </div>
   </div>
 
@@ -698,6 +706,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/29/Activity如何计算view的层级深度/">Activity如何计算view的层级深度</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/28/搜索项目apk文件/">搜索项目apk文件</a>
           </li>
         
@@ -711,10 +723,6 @@
         
           <li>
             <a href="/2017/12/30/自定义view－标签/">自定义view－标签</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/30/解释器模式实现与研究/">解释器模式实现与研究</a>
           </li>
         
       </ul>
